@@ -1,0 +1,26 @@
+{
+  "name": "pkmtcg",
+  "homepage": "https://github.com/jcb121/pkmtcg",
+  "authors": [
+    "jcb121 <jcb.121@hotmail.co.uk>"
+  ],
+  "description": "A trading card database",
+  "main": "src/client/app/app.js",
+  "moduleType": [
+    "amd"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.8",
+    "angular-ui-router": "~0.2.15",
+    "angular-material": "~1.0.2"
+  }
+}

@@ -1,0 +1,68 @@
+
+
+<!--<div ng-hide="imgReady" class="cardMarkUp {{ card.type | removeSpaces }}">
+
+    <header class="trainer" ng-show="typeCheckerService.isTrainer(card.type)">
+        TRAINER
+        <span class="{{ card.type | removeSpaces | removeTrainer  }}">
+            {{ card.type | removeTrainer }}
+        </span>
+    </header>
+
+    <name ng-class="{'trainer':typeCheckerService.isTrainer(card.type)}">
+        {{card.name}}
+        <health ng-show="typeCheckerService.isPokemon(card.type)"><span>HP </span>{{card.health}}</health>
+    </name>
+
+    <div ng-hide="card.type =='Energy'" class="placeHolder"></div>
+
+    <div ng-show="typeCheckerService.isPokemon(card.type)">
+        <ability class="{{card.abilityName | removeSpaces }}">Ability {{ card.abilityName }}</ability>
+
+        <attack class="{{ card.attack1 | removeSpaces }}"><span>{{card.attack1Damage}}</span>{{ card.attack1 }}</attack>
+
+        <attack class="{{ card.attack2 | removeSpaces }}"><span>{{card.attack2Damage}}</span>{{ card.attack2 }}</attack>
+
+        <attack class="{{ card.attack3 | removeSpaces }}"><span>{{card.attack3Damage}}</span>{{ card.attack3 }}</attack>
+    </div>
+
+</div> -->
+
+<div class="cardImage"
+     ng-mouseenter="hover = true"
+     ng-mouseleave="hover = false">
+
+    <img ng-click="activeCard.set(card);$event.stopPropagation()" ng-src="{{card.url}}" />
+
+    <div class="marked" ng-show="markedCards.check(card.id)"
+         ng-click="markedCards.toggle(card)">
+        <i class="fa fa-check"></i>
+    </div>
+
+    <div class="quantity">
+        <span>x{{decks.getDeck(deck).quantity(id)}}</span>
+    </div>
+
+    <div class="cardMenu">
+
+        <button class="button" ng-click="decks.getDeck(decks.activeDeck).add(card.id);$event.stopPropagation()"><i class="fa fa-plus"></i></button>
+
+        <!-- Active deck var doesn't work if it's in a deck that isn't active....-->
+
+        <button class="button deckButton" ng-click="decks.getDeck(deck).remove(card.id);$event.stopPropagation()"><i class="fa fa-minus"></i></button>
+
+        <button class="button deckButton" ng-click="decks.getDeck(deck).delete(card.id);$event.stopPropagation()"><i class="fa fa-times"></i></button>
+
+        <button class="button" ng-click="$event.stopPropagation()"><i class="fa fa-heart"></i></button>
+
+        <button class="button" ng-click="activeCard.set(card);$event.stopPropagation()"><i class="fa fa-search-plus"></i></button>
+
+        <button class="button" ng-click="markedCards.toggle(card.id);$event.stopPropagation()"
+                ng-class="{'active':markedCards.check(card.id)}">
+            <i ng-hide="markedCards.check(card.id)" class="fa fa-square-o"></i>
+            <i ng-show="markedCards.check(card.id)" class="fa fa-check-square-o"></i>
+        </button>
+    </div>
+
+</div>
+<span ng-transclude></span>

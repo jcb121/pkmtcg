@@ -1,0 +1,27 @@
+
+<section>
+    <button class="noStyle" ng-click="decks.newDeck()"><h3>New Deck</h3></button>
+</section>
+
+
+<section ng-class="{'active': panelState }" ng-init="panelState = false;">
+
+    <h3 ng-click="panelState = !panelState;">
+        Load Decks
+        <i ng-hide="panelState" class="fa fa-chevron-down"></i>
+        <i ng-show="panelState" class="fa fa-chevron-up"></i>
+    </h3>
+    <div ng-show="panelState">
+        <label>
+            Search By Name
+            <autocomplete on-select="decks.addDeck" data="decks.globalDeckNames"></autocomplete>
+        </label>
+
+
+        <label>
+            Browse All
+            <select ng-model="deck" ng-change="decks.addDeck(deck.name);" ng-options="prop.name for prop in decks.globalDecks track by prop.id"></select>
+        </label>
+
+    </div>
+</section>

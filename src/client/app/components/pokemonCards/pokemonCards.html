@@ -1,0 +1,97 @@
+<section ng-repeat="deck in Decks.decks">
+
+    <button class="deckInput pointer" ng-init="setName=false;" ng-click="setName = !setName;">
+        <div ng-hide="setName">{{deck.name}}</div>
+        <input ng-blur="setName = false;" ng-show="setName" type="text" ng-model="deck.name" ng-click="$event.stopPropagation()" />
+        <i class="fa fa-check" ng-show="setName" ></i>
+    </button>
+
+    <button class="deckInput pointer"
+            ng-click="Deck.saveDeck($index)">
+        Save Deck
+    </button>
+
+    <button class="deckInput pointer"
+            ng-click="Decks.deleteDeck($index)">
+        Delete Deck
+    </button>
+
+    <label>Cards in Deck: {{Decks.totalCards($index)}}</label>
+
+    <label class="deckInput pointer">
+        Current Deck
+        <input type="radio" name="deckSelect" ng-model="Decks.activeDeck" ng-value="$index" ng-click="Decks.setActive($index)"/>
+        <i ng-show="Decks.isActive($index)" class="fa fa-toggle-on"></i>
+        <i ng-hide="Decks.isActive($index)" class="fa fa-toggle-off"></i>
+    </label>
+
+    <label ng-init="deckFilter = []" >Show:</label>
+    <label class="toggle">
+        Pokemon
+        <input type="checkbox" ng-init="deckFilter[0] = 'pokemon'" ng-model="deckFilter[0]" ng-true-value="'pokemon'" ng-false-value="false">
+        <i ng-show="deckFilter[0]" class="fa fa-toggle-on"></i>
+        <i ng-hide="deckFilter[0]" class="fa fa-toggle-off"></i>
+    </label>
+
+    <label class="toggle">
+        Trainer
+        <input type="checkbox" ng-init="deckFilter[1] = 'trainer'" ng-model="deckFilter[1]" ng-true-value="'trainer'" ng-false-value="false">
+        <i ng-show="deckFilter[1]" class="fa fa-toggle-on"></i>
+        <i ng-hide="deckFilter[1]" class="fa fa-toggle-off"></i>
+    </label>
+
+    <label class="toggle">
+        Energy
+        <input type="checkbox" ng-init="deckFilter[2] = 'energy'" ng-model="deckFilter[2]" ng-true-value="'energy'" ng-false-value="false">
+        <i ng-show="deckFilter[2]" class="fa fa-toggle-on"></i>
+        <i ng-hide="deckFilter[2]" class="fa fa-toggle-off"></i>
+    </label>
+
+    <article class="deckPanel" ng-class="{'active':Decks.isActive($index)}">
+        <pokemon-card class="deck medium quantity {{Cards.typeof(card, true)}}"  ng-repeat="card in deck.cards | filterOutCards:deckFilter" deck="$parent.$index" id="card.id"></pokemon-card><!---->
+    </article>
+
+</section>
+
+<!--  ====================================================================================== -->
+
+
+<section class="cardPanel">
+
+    <span ng-init="pageObject = {page:0, itemsPer:14}"></span>
+
+    <article>
+
+            <pokemon-card class="medium"ng-repeat="card in (Cards.cards | filterOutCards:[] | showPage:pageObject )" data="card" deck="-1" ></pokemon-card>
+    </article>
+
+
+    <!-- this rule is half way there -->
+    <!--<h1 ng-repeat="person in filtered = ( Cards.pane  | getPageButtons:pageObject )">{{filtered.length}} | filterOutCards:[]  | showPage:pageObject</h1>-->
+
+    <nav>
+        <button class="button"
+                ng-click="pageObject.page = pageObject.page -1;" >
+            <i class="fa fa-arrow-left"></i>
+        </button><!--
+
+
+
+
+        --><button class="button"
+                   ng-repeat="button in (Cards.cards | filterOutCards:[] | getPageButtons:pageObject )"
+                   ng-class="{ 'active':pageObject.page == $index }"
+                   ng-click="pageObject.page = $index;" >
+            {{$index +1 }}
+        </button><!--
+
+
+
+        --><button class="button"
+                   ng-click="pageObject.page =pageObject.page +1;" >
+            <i class="fa fa-arrow-right"></i>
+        </button>
+    </nav>
+
+
+</section>

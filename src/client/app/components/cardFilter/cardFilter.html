@@ -1,0 +1,52 @@
+<section ng-class="{'active': panel1State }" ng-init="panel1State = false;">
+    <h3 ng-click="panel1State = !panel1State;">
+        Card Name
+        <i ng-hide="panel1State" class="fa fa-chevron-down"></i>
+        <i ng-show="panel1State" class="fa fa-chevron-up"></i>
+    </h3>
+    <autocomplete ng-show="panel1State" ng-model="selected.name" data="cardNamesService.info"></autocomplete>
+
+</section>
+
+ <!--<section>
+   <label ng-repeat="status in legals">
+        <input value="{{status.id}}" type="checkbox" ng-model="selected.legal[status.id];">
+        {{status.name}}
+    </label>
+
+</section>-->
+
+<section class="typeFilter" ng-class="{'active': panel2State }" ng-init="panel2State = false;">
+
+    <h3 ng-click="panel2State = !panel2State;">
+        Type
+        <i ng-hide="panel2State" class="fa fa-chevron-down"></i>
+        <i ng-show="panel2State" class="fa fa-chevron-up"></i>
+    </h3>
+
+    <label ng-show="panel2State" ng-repeat="type in cardTypesService.data" ng-class="{'active': selected.types[type.id] }" class="toggle {{type.name | removeTrainer }}">
+
+        <!--<img src="{{type.url}}" />-->
+        <input value="{{type.id}}" type="checkbox" ng-model="selected.types[type.id];">
+        {{type.name | removeTrainer }}
+        <i ng-show="selected.types[type.id]" class="fa fa-toggle-on"></i>
+        <i ng-hide="selected.types[type.id]" class="fa fa-toggle-off"></i>
+    </label>
+</section>
+
+<section class="propertyFilter" ng-class="{'active': panel3State }" ng-init="panel3State = false;">
+
+    <h3 ng-click="panel3State = !panel3State;">
+        Property
+        <i ng-hide="pane3State" class="fa fa-chevron-down"></i>
+        <i ng-show="pane3State" class="fa fa-chevron-up"></i>
+    </h3>
+
+
+    <label ng-show="panel3State" ng-repeat="property in cardPropertiesService.data"  ng-class="{'active':selected.properties[property.id]}" class="toggle">
+        <input value="{{property.id}}" type="checkbox" ng-model="selected.properties[property.id];">
+        {{property.name}}
+        <i ng-show="selected.properties[property.id]" class="fa fa-toggle-on"></i>
+        <i ng-hide="selected.properties[property.id]" class="fa fa-toggle-off"></i>
+    </label>
+</section>

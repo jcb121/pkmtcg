@@ -1,0 +1,18 @@
+<div class="attackMod">
+   <label>
+        Attack <span ng-transclude></span>:
+        <autocomplete on-type="attackChange" ng-model="name" data="cardAttacksService.info"></autocomplete>
+    </label>
+
+    <div ng-init="newCard=false" ng-show="newCard" >
+        <label>
+            Attack Damage:
+            <input type="number" ng-model="damage" ng-change="validate" required>
+        </label>
+
+        <label >
+            Attack Property:
+            <select ng-model="property" ng-options="prop.name for prop in cardPropertiesService.data track by prop.id" ng-required="string"></select>
+        </label>
+    </div>
+</div>

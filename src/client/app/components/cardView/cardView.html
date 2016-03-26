@@ -1,0 +1,17 @@
+<div ng-click="activeCard.remove();" ng-show="activeCard.check()" >
+
+    <div class="window">
+
+        <section class="main" ng-repeat="card in [activeCard.getCard()]">
+            <pokemon-card class="large" data="activeCard.getCard()"></pokemon-card>
+        </section>
+
+        <section class="sub">
+            <pokemon-card class="small" ng-repeat="card in activeCard.getCards()" data="card"></pokemon-card>
+        </section>
+
+
+    </div>
+
+
+</div>

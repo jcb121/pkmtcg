@@ -1,0 +1,34 @@
+/*====================================  Page RELATED FUNCTIONS  ===============================================*/
+
+/*
+ *
+ */
+this.hideAllPages = function () {
+    this.pane = [];
+};
+
+/*
+ *
+ */
+this.showPage = function (page) {
+
+    if (page < 0) return;
+    if (page >= this.panels.length) return;
+
+    this.current = page;
+    this.pane = this.panels[page];
+}
+
+/*
+ *
+ */
+this.createPanels = function (data) {
+
+    this.panels = new Array(Math.ceil(data.length / 24));
+
+    for (var i = 0; i < this.panels.length; i++) {
+        this.panels[i] = data.slice(i * 24, i * 24 + 24);
+    };
+
+    this.showPage(0);
+};

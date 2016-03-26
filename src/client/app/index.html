@@ -1,9 +1,35 @@
 <head>
   <title>Pkmtcg</title>
-  <script src="bower_modules\angular\angular.js"></script>
-  <script src="bower_modules\angular-material\angular-material.js"></script>
-  <script src="bower_modules\angular-ui-router\release\angular-ui-router.js"></script>
-</head>
-<body>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body ng-app="app">
+
+  <card-view></card-view>
+
+  <header>
+    <h1>PKMTCG</h1>
+
+    <nav>
+    </nav>
+  </header>
+
+
+
+  <aside>
+    <deck-loader></deck-loader><!--
+    --><card-filter></card-filter><!--
+    --><card-form></card-form>
+  </aside>
+
+  <section>
+    <pokemon-cards></pokemon-cards>
+  </section>
+
+  <footer>
+    <script src="assets/angular/angular.min.js"></script>
+    <script src="main.js"></script>
+  </footer>
 </body>

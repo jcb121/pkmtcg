@@ -1,0 +1,19 @@
+<div class="abilityMod">
+    <label>
+        Ability <span ng-transclude></span>:
+        <autocomplete on-type="abilityChange" ng-model="name" data="cardAbilitiesService.info"></autocomplete>
+    </label>
+
+    <div ng-init="newCard=false" ng-show="newCard">
+        <label>
+            Ability Trigger:
+            <select ng-model="trigger" ng-options="trigger.name for trigger in cardTriggersService.data track by trigger.id" ng-required="string"></select>
+
+        </label>
+
+        <label>
+            Ability Property:
+            <select ng-model="property" ng-options="prop.name for prop in cardPropertiesService.data track by prop.id" ng-required="string"></select>
+        </label>
+    </div>
+</div>

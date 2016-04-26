@@ -50,7 +50,7 @@ rootApp.service("activeCard", function ($http, cards) {
             });
 
             if (self.matchingIds.length > 0) {
-                cards.load({ id: self.matchingIds }, function (response) {
+                cards.get({ id: self.matchingIds }, false, function (response) {
                     self.cards = response.data;
                 });
             }

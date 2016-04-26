@@ -6,25 +6,24 @@ rootApp.directive("pokemonCard", function () {
         scope: {
             data: "=",
             deck: "=",
-            id: "=",
+            id: "="
         },
         controller: function ($scope, markedCards, activeCard, cards, decks, typeChecker ) {
 
-            if (typeof $scope.data === "undefined") {
+            $scope.MarkedCards = markedCards;
+            $scope.ActiveCard = activeCard;
+            $scope.Cards = cards;
+            $scope.Decks = decks;
+            $scope.TypeChecker = typeChecker;
 
-                cards.load({ id: $scope.id }, function (response) {
-                    $scope.data = response.data[0];
-                });
-
-            }
-
-            $scope.markedCards = markedCards;
-            $scope.activeCard = activeCard;
-            $scope.cards = cards;
-            $scope.decks = decks;
-            $scope.typeCheckerService = typeChecker;
 
             $scope.card = $scope.data;
+
+			if (typeof $scope.data === "undefined") {
+                $scope.Cards.get({ id: $scope.id }, false, function (response) {
+                    $scope.card = response.data[0];
+                });
+            }
 
         },
         link: function (scope, element, attrs, ngModel) {

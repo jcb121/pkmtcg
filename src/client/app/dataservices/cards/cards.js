@@ -3,21 +3,18 @@ rootApp.service("cards", function ($http) {
     var self = this;
     this.cards = [];
 
-
-
-    /*====================================  Card RELATED FUNCTIONS  ===============================================*/
-
     /*
      * Loads card objects from the server.
      */
-    this.get = function (filters, callback, overwriteCards) {
+    this.get = function (filters, overwriteCards, callback ) {
+
 
         var url = "http://pkm.52webdesigns.com/rest/cards.php?";
 
         if (filters === false) {
             $http.get(url).then(function (response) {
                 if (overwriteCards) {
-                    self.createPanels(response.data);
+                    self.cards = response.data;
                 }
                 if( angular.isFunction(callback)){
                   callback(response);
@@ -31,24 +28,28 @@ rootApp.service("cards", function ($http) {
             if (typeof filters.types === "undefined") filters.types = [];
             if (typeof filters.properties === "undefined") filters.properties = [];
 
+            if (typeof filters.page === "undefined") filters.page = "";
+            if (typeof filters.pagePer === "undefined") filters.pagePer = "";
+
+
             if (!Array.isArray(filters.id)) filters.id = [filters.id];
 
             var preLoaded = this.checkLocalCards(filters.id);
 
             if (preLoaded.foundAll) {
                 if (overwriteCards) {
-                    self.createPanels(response.data);
+                    self.cards = preLoaded.cards;
                 }
                 if( angular.isFunction(callback) ){
                   callback({ data: preLoaded.cards });
                 }
             }
             else {
-                console.log("http call for cards");
-                $http.get(url + "id=" + filters.id.toString() + "&name=" + filters.name + "&types=" + filters.types.toString() + "&properties=" + filters.properties.toString()).then(function (response) {
+                console.log("http call for more cards");
+                $http.get(url + "id=" + filters.id.toString() + "&name=" + filters.name + "&types=" + filters.types.toString() + "&properties=" + filters.properties.toString() + "&page=" + filters.page  + "&pagePer=" + filters.pagePer).then(function (response) {
                     response.data = response.data.concat(preLoaded.cards);
                     if (overwriteCards) {
-                        self.createPanels(response.data);
+                        self.cards = response.data;
                     }
                     if( angular.isFunction(callback)){
                       callback(response);
@@ -122,8 +123,6 @@ rootApp.service("cards", function ($http) {
 
     /*====================================  INIT  ===============================================*/
 
-    this.get(false, function (response) {
-        self.cards = response.data;
-    });
+    this.get(false, true);
 
 });

@@ -1,0 +1,97 @@
+<md-tabs ng-show="Decks.decks.length > 0" md-selected="Decks.activeDeck" md-border-bottom md-autoselect md-dynamic-height>
+	<md-tab
+		ng-repeat="(deckIndex, deck) in Decks.decks"
+		label="{{deck.name}}">
+		<div layout="row">
+			<md-card layout="row" layout-align="center center">
+				<md-card-content layout="row" layout-align="center center">
+					<div ng-init="setName=false;" layout="row" layout-align="space-between center">
+				        <div ng-if="!setName">{{deck.name}}</div>
+				        <input ng-if="setName" ng-blur="setName = false;" type="text" ng-model="deck.name" />
+
+						<md-button class="md-icon-button" ng-click="setName = !setName;">
+							<i ng-if="!setName" class="material-icons">edit</i>
+							<i ng-if="setName" class="material-icons">done</i>
+						</md-button>
+				    </div>
+				</md-card-content>
+			</md-card>
+
+			<md-card layout="row" layout-align="center center">
+				<md-card-content>
+					<span>Cards in Deck: {{deck.totalCards()}}/60</span>
+				</md-card-content>
+			</md-card>
+
+			<md-card layout="row" layout-align="center center">
+				<md-card-content>
+					<div ng-init="deckFilter = []" >Show:</div>
+					<md-checkbox
+						ng-init="deckFilter[0] = 'pokemon'"
+						ng-model="deckFilter[0]"
+						ng-true-value="'pokemon'"
+						ng-false-value="false">
+						Pokemon
+					</md-checkbox>
+					<md-checkbox
+						ng-init="deckFilter[1] = 'trainer'"
+						ng-model="deckFilter[1]"
+						ng-true-value="'trainer'"
+						ng-false-value="false">
+						Trainer
+					</md-checkbox>
+					<md-checkbox
+						ng-init="deckFilter[2] = 'energy'"
+						ng-model="deckFilter[2]"
+						ng-true-value="'energy'"
+						ng-false-value="false">
+						Energy
+					</md-checkbox>
+				</md-card-content>
+			</md-card>
+
+			<md-card>
+				<md-card-content layout="row" layout-align="center center">
+					<md-button class="md-icon-button" ng-click="pokemonCols = pokemonCols - 1;">
+						<i class="material-icons">zoom_in</i>
+					</md-button>
+					<md-button class="md-icon-button" ng-click="pokemonCols = pokemonCols + 1">
+						<i class="material-icons">zoom_out</i>
+					</md-button>
+				</md-card-content>
+			</md-card>
+
+			<span flex></span>
+
+			<md-card>
+				<md-card-content layout="row" layout-align="center center">
+					<md-button ng-disabled="setName" ng-click="Deck.saveDeck($index)" >
+						<div layout="row" layout-align="space-between center">
+							<span>Save Deck&nbsp;</span>
+							<i class="material-icons">save</i>
+						</div>
+					</md-button>
+					<md-button ng-click="Decks.deleteDeck($index)">
+						<div layout="row" layout-align="space-between center">
+							<span>Delete Deck&nbsp;</span>
+							<i class="material-icons">delete</i>
+						</div>
+					</md-button>
+				</md-card-content>
+			</md-card>
+
+
+
+		</div>
+		<article class="deckPanel" ng-class="{'active':Decks.isActive($index)}" ng-init="pokemonCols = 10">
+			<!-- {{Cards.typeof(card, true)}} -->
+			<md-grid-list md-cols="{{ pokemonCols }}" md-gutter="16px" md-row-height="1:1.4">
+				<md-grid-tile ng-repeat="card in deck.cards | filterOutCards:deckFilter">
+					<pokemon-card layout-fill deck="deckIndex" id="card.id"></pokemon-card>
+				</md-grid-tile>
+			</md-grid-list>
+
+		</article>
+	</md-tab>
+</md-tabs>
+<md-divider ng-show="Decks.decks.length > 0"></md-divider>

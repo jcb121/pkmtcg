@@ -4,12 +4,7 @@ rootApp.directive("deckLoader", function () {
         templateUrl: "components/deckLoader/deckLoader.html",
         scope: {},
         controller: function ($scope, decks ) {
-            $scope.decks = decks;
-        },
-        link: function (scope, element, attrs, ngModel) {
-
-
-
+            $scope.Decks = decks;
         }
     };
 });

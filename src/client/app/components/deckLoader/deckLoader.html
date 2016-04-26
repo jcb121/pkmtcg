@@ -1,27 +1,42 @@
+<div layout="column" ng-init="panelState = false;">
+	<md-button flex ng-click="Decks.newDeck()">
+		<div layout="row" layout-align="space-between center">
+			<span>New Deck</span>
+			<i class="material-icons">add</i>
+		</div>
+	</md-button>
 
-<section>
-    <button class="noStyle" ng-click="decks.newDeck()"><h3>New Deck</h3></button>
-</section>
+	<md-button flex ng-click="panelState = !panelState;" >
+		<div layout="row" layout-align="space-between center">
+			<span>Load Decks</span>
+			<i ng-if="!panelState" class="material-icons">keyboard_arrow_down</i>
+			<i ng-if="panelState" class="material-icons">keyboard_arrow_up</i>
+		</div>
+	</md-button>
 
-
-<section ng-class="{'active': panelState }" ng-init="panelState = false;">
-
-    <h3 ng-click="panelState = !panelState;">
-        Load Decks
-        <i ng-hide="panelState" class="fa fa-chevron-down"></i>
-        <i ng-show="panelState" class="fa fa-chevron-up"></i>
-    </h3>
-    <div ng-show="panelState">
-        <label>
-            Search By Name
-            <autocomplete on-select="decks.addDeck" data="decks.globalDeckNames"></autocomplete>
-        </label>
-
-
-        <label>
-            Browse All
-            <select ng-model="deck" ng-change="decks.addDeck(deck.name);" ng-options="prop.name for prop in decks.globalDecks track by prop.id"></select>
-        </label>
-
-    </div>
-</section>
+	<div ng-if="panelState">
+		<div layout>
+			<md-input-container flex="100">
+				<label>Search By Name</label>
+				<md-autocomplete md-items="deck in Decks.webDecks.decks">
+					<md-item-template>
+						<span ng-click="Decks.addDeck(deck.id)">{{deck.name}}</span>
+					</md-item-template>
+				</md-autocomplete>
+			</md-input-container>
+		</div>
+		<div layout>
+			<md-input-container flex="100">
+				<label>Browse All</label>
+				<md-select ng-model="deck">
+					<md-option
+						ng-repeat="deck in Decks.webDecks.decks track by deck.id"
+						ng-value="deck.id"
+						ng-click="Decks.addDeck(deck.id);">
+						{{deck.name}}
+					</md-option>
+				</md-select>
+			</md-input-container>
+		</div>
+	</div>
+</div>

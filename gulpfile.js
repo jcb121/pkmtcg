@@ -13,7 +13,8 @@ var gulp = require('gulp'),
     del = require('del'),
     angularTemplateCache = require('gulp-angular-templatecache'),
     addStream = require('add-stream'),
-    connect = require('gulp-connect');
+    connect = require('gulp-connect'),
+    runSequence = require('run-sequence');
 
 gulp.task('clean', function() {
     return del(['dist/client/**', '!dist/client' ]);
@@ -48,17 +49,14 @@ gulp.task('images', function() {
     .pipe(notify({ message: 'Images task complete' }));
 });
 
-gulp.task('move', function(){
-
-  gulp.src('src/client/app/*.html')
-  .pipe(gulp.dest('dist/client'));
-
+gulp.task('html', function(){
   gulp.src(['src/client/app/**/*.html', 'src/client/app/*.html'])
   .pipe(gulp.dest('dist/client'));
+});
 
-  gulp.src(['src/client/app/bower_modules/**/*.min.js', 'src/client/app/bower_modules/**/*.min.css'])
+gulp.task('assets', function(){
+  gulp.src(['src/client/app/bower_modules/**/*.*'])
   .pipe(gulp.dest('dist/client/assets'));
-
 });
 
 gulp.task('connect', function() {
@@ -68,15 +66,27 @@ gulp.task('connect', function() {
 });
 
 gulp.task('default', ['clean'], function() { /*'clean', */
-  gulp.start('styles', 'scripts', 'move' ,'connect', 'watch');
+
+  gulp.start('styles', 'scripts', 'assets', 'html' ,'connect', 'watch');
+
+  //runSequence([]);
+
 });
 
 gulp.task('watch', function() {
 
   // Create LiveReload server
-  livereload.listen();
+  //livereload.listen();
 
   // Watch any files in dist/, reload on change
-  gulp.watch(['src/client/app/**']).on('change', livereload.changed);
+  gulp.watch(['src/client/app/**/*.js', '!src/client/app/bower_modules/**/*.js'], ['scripts']);
+
+  // Watch any files in dist/, reload on change
+  gulp.watch(['src/client/app/**/*.html', '!src/client/app/bower_modules/**/*.html'], ['html']);
+
+
+  gulp.watch(['src/client/app/**/*.scss', '!src/client/app/bower_modules/**/*.scss'], ['styles']);
+
+  //gulp.watch(['src/client/app/**']).on('change', livereload.changed);
 
 });

@@ -1,12 +1,5 @@
-var rootApp;
-(function(){
-  rootApp = angular.module('app', [
-    //  'ngSanitize',
-    //  'autocomplete',
-    //  'afkl.lazyImage',
-    //  'ngTouch'
-  ]);
-})();
+var rootApp = angular.module('app', ['ngMaterial']);
+
 
 rootApp.service("facebookLogin", function ($http) {
 
@@ -99,7 +92,21 @@ rootApp.service("facebookLogin", function ($http) {
 
 });
 
+rootApp.controller("masterController", function ($scope,  $timeout, $mdSidenav, $log) {
+    //$scope.facebook = facebookLogin;
 
-rootApp.controller("masterController", function ($scope, facebookLogin) {
-    $scope.facebook = facebookLogin;
+	$scope.openSideNav = function(location){
+		$mdSidenav(location).open()
+	    	.then(function () {
+	        	$log.debug("close " + location + " is done");
+	    	});
+	};
+
+	$scope.closeSideNav = function (location){
+    	$mdSidenav(location).close()
+    	.then(function () {
+        	$log.debug("close " + location + " is done");
+    	});
+	};
+
 });

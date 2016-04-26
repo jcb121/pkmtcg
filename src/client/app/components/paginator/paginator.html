@@ -1,0 +1,13 @@
+<nav layout="row" layout-align="center center">
+	<md-button class="md-icon-button" ng-click="next()">
+		<i class="material-icons">arrow_back</i>
+	</md-button>
+	<md-button class="md-icon-button" ng-repeat="page in pages" ng-click="goTo($index)">
+		{{$index +1 }}
+	</md-button>
+
+	<md-button class="md-icon-button" ng-click="prev()">
+		<i class="material-icons">arrow_forward</i>
+	</md-button>
+
+</nav>

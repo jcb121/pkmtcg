@@ -2,34 +2,59 @@
   <title>Pkmtcg</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="assets/angular-material/angular-material.min.css">
+
 </head>
-<body ng-app="app">
+<body ng-app="app" ng-controller="masterController">
 
-  <card-view></card-view>
+<div layout="column" layout-fill>
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="Settings" ng-click="openSideNav('left');">
+	          <i class="material-icons">menu</i>
+	        </md-button>
+			<h2>PKMTCG</h2>
+		</div>
+	</md-toolbar>
+	<md-content flex layout-padding>
+		<pokemon-decks></pokemon-decks>
+    	<pokemon-cards></pokemon-cards>
+    	<card-paginator page-Count="5"></card-paginator>
+    </md-content>
+</div>
 
-  <header>
-    <h1>PKMTCG</h1>
+<card-view></card-view>
 
-    <nav>
-    </nav>
-  </header>
+<md-sidenav class="md-sidenav-left"
+    md-component-id="left"
+    md-disable-backdrop
+    md-whiteframe="4">
+	<!-- md-is-locked-open="$mdMedia('gt-md')" -->
+	<md-toolbar class="md-theme-indigo" layout="row" layout-align="space-between center">
+	    <h1 class="md-toolbar-tools">Sidenav Left</h1>
+		<md-button class="md-icon-button" ng-click="closeSideNav('left')">
+			<i class="material-icons">close</i>
+		</md-button>
+	</md-toolbar>
+	<md-content layout-padding>
+		<deck-loader></deck-loader>
+	    <!--<card-form></card-form>-->
+		<!--<card-filter></card-filter>-->
+	</md-content>
+</md-sidenav>
 
 
 
-  <aside>
-    <deck-loader></deck-loader><!--
-    --><card-filter></card-filter><!--
-    --><card-form></card-form>
-  </aside>
 
-  <section>
-    <pokemon-cards></pokemon-cards>
-  </section>
+
 
   <footer>
-    <script src="assets/angular/angular.min.js"></script>
+    <script src="assets/angular/angular.js"></script>
+    <script src="assets/angular-material/angular-material.js"></script>
+    <script src="assets/angular-animate/angular-animate.js"></script>
+    <script src="assets/angular-messages/angular-messages.js"></script>
+    <script src="assets/angular-aria/angular-aria.js"></script>
     <script src="main.js"></script>
   </footer>
 </body>

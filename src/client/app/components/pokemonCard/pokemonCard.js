@@ -1,7 +1,6 @@
 rootApp.directive("pokemonCard", function () {
     return {
         transclude: true,
-        require: [],
         templateUrl: "components/pokemonCard/pokemonCard.html",
         scope: {
             data: "=",
@@ -27,12 +26,10 @@ rootApp.directive("pokemonCard", function () {
 
         },
         link: function (scope, element, attrs, ngModel) {
-
             element.find("img").on("load", function () {
                 scope.imgReady = true;
                 scope.$apply();
             });
-
         }
     };
 });

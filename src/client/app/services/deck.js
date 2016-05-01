@@ -1,5 +1,4 @@
 rootApp.service("deck", function(){
-
 	var deckObject = function(name, cards, id){
 		this.name = name;
 		this.cards = cards;
@@ -12,7 +11,6 @@ rootApp.service("deck", function(){
 		this.quantityOfCard = quantityOfCard;
 		this.totalCards = totalCards;
 	};
-
 	return deckObject;
 
 	function addCard(id){
@@ -38,7 +36,9 @@ rootApp.service("deck", function(){
 
 	function deleteCard(id){
 		var index = this.indexOfCard(id);
-		this.cards.splice(index, 1);
+		if(index){
+			this.cards.splice(index, 1);
+		}
 	}
 
 	function indexOfCard(id){
@@ -61,6 +61,4 @@ rootApp.service("deck", function(){
 		});
 		return cardCount;
 	}
-
-
 });

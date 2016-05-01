@@ -1,7 +1,7 @@
 var rootApp = angular.module('app', ['ngMaterial']);
 
 
-rootApp.service("facebookLogin", function ($http) {
+/*rootApp.service("facebookLogin", function ($http) {
 
     var self = this;
 
@@ -90,11 +90,10 @@ rootApp.service("facebookLogin", function ($http) {
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 
-});
+}); */
 
 rootApp.controller("masterController", function ($scope,  $timeout, $mdSidenav, $log) {
-    //$scope.facebook = facebookLogin;
-
+	//$scope.facebook = facebookLogin;
 	$scope.openSideNav = function(location){
 		$mdSidenav(location).open()
 	    	.then(function () {

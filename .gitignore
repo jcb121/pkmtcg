@@ -2,3 +2,6 @@ bower_components
 node_modules
 src/client/app/bower_modules/
 dist
+test/coverage
+.sass-cache/
+.sass-cache/210d083c992576acc2e7e4da6a076e7b30e51c87/main.scssc

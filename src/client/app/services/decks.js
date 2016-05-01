@@ -16,21 +16,20 @@ rootApp.service("decks", function (webDecks, deck, $mdToast) {
 		if(focus){
 			this.setActive(0);
 		}
-
-		$mdToast.show(
+		/*TODO Move to it's own serive*/
+		/*$mdToast.show(
 	      $mdToast.simple()
 	        .textContent('New Deck Created')
 	        .position('top right')
 	        .hideDelay(3000)
-	    );
-
+	    );*/
         return deck;
     };
 
     /*
      * Adds a global deck to the user's decks
      */
-    this.addDeck = function (id, name) {
+    this.addDeck = function (id) {
 		//seachs the global decks to find the matching deck id
 		var deck = false;
 		if(id){
@@ -68,12 +67,12 @@ rootApp.service("decks", function (webDecks, deck, $mdToast) {
      * Sets the active cards for user interactions
      */
     this.setActive = function (index) {
-		$mdToast.show(
+		/*$mdToast.show(
 	      $mdToast.simple()
 	        .textContent('Active Deck Changed')
 	        .position('top right')
 	        .hideDelay(3000)
-	    );
+	    );*/
 		this.activeDeck = index;
 		return this.decks[index];
     };
@@ -108,7 +107,7 @@ rootApp.service("decks", function (webDecks, deck, $mdToast) {
 	/*
      * TODO: Saves the deck to the server
      */
-    this.saveDeck = function (index) {
+    /*this.saveDeck = function (index) {
         console.log("work on saving decks");
-    };
+    };*/
 });

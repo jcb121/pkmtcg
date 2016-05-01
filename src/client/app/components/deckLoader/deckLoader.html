@@ -1,12 +1,12 @@
 <div layout="column" ng-init="panelState = false;">
-	<md-button flex ng-click="Decks.newDeck()">
+	<md-button ng-click="Decks.newDeck()">
 		<div layout="row" layout-align="space-between center">
 			<span>New Deck</span>
 			<i class="material-icons">add</i>
 		</div>
 	</md-button>
 
-	<md-button flex ng-click="panelState = !panelState;" >
+	<md-button ng-click="panelState = !panelState;" >
 		<div layout="row" layout-align="space-between center">
 			<span>Load Decks</span>
 			<i ng-if="!panelState" class="material-icons">keyboard_arrow_down</i>

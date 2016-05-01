@@ -14,10 +14,18 @@ var gulp = require('gulp'),
     angularTemplateCache = require('gulp-angular-templatecache'),
     addStream = require('add-stream'),
     connect = require('gulp-connect'),
-    runSequence = require('run-sequence');
+    runSequence = require('run-sequence'),
+	karmaServer = require('karma').Server;
 
 gulp.task('clean', function() {
-    return del(['dist/client/**', '!dist/client' ]);
+    return del(['dist/client/**', '!dist/client', '!dist/client/bower_modules', '!dist/client/bower_modules/**']);
+});
+
+gulp.task('test', function(done){
+	new karmaServer({
+	    configFile: __dirname + '/karma.conf.js',
+		singleRun: true
+	}, done).start();
 });
 
 gulp.task('styles', function() {
@@ -31,7 +39,7 @@ gulp.task('styles', function() {
 });
 
 gulp.task('scripts', function() {
-  return gulp.src(['src/client/app/**/*.js', '!src/client/app/bower_modules/**/*.js'])
+  return gulp.src(['src/client/app/**/*.js', '!src/client/app/**/*.spec.js', '!src/client/app/bower_modules/**/*.js' ])
     //.pipe(jshint('.jshintrc'))
     //.pipe(jshint.reporter('default'))
     .pipe(concat('main.js'))
@@ -50,13 +58,18 @@ gulp.task('images', function() {
 });
 
 gulp.task('html', function(){
-  gulp.src(['src/client/app/**/*.html', 'src/client/app/*.html'])
-  .pipe(gulp.dest('dist/client'));
-});
 
-gulp.task('assets', function(){
-  gulp.src(['src/client/app/bower_modules/**/*.*'])
-  .pipe(gulp.dest('dist/client/assets'));
+	//gulp.src(['src/client/app/**/*.html', 'src/client/app/*.html'])
+	//.pipe(rename({dirname: 'components'}))
+	//.pipe(gulp.dest('dist/client'));
+
+	gulp.src( 'src/client/app/*.html')
+	.pipe(gulp.dest('dist/client'));
+
+	gulp.src( 'src/client/app/**/*.html')
+	.pipe(gulp.dest('dist/client'));
+
+
 });
 
 gulp.task('connect', function() {
@@ -67,7 +80,7 @@ gulp.task('connect', function() {
 
 gulp.task('default', ['clean'], function() { /*'clean', */
 
-  gulp.start('styles', 'scripts', 'assets', 'html' ,'connect', 'watch');
+  gulp.start('styles', 'scripts', 'html' ,'connect', 'watch');
 
   //runSequence([]);
 
@@ -79,13 +92,9 @@ gulp.task('watch', function() {
   //livereload.listen();
 
   // Watch any files in dist/, reload on change
-  gulp.watch(['src/client/app/**/*.js', '!src/client/app/bower_modules/**/*.js'], ['scripts']);
-
-  // Watch any files in dist/, reload on change
-  gulp.watch(['src/client/app/**/*.html', '!src/client/app/bower_modules/**/*.html'], ['html']);
-
-
-  gulp.watch(['src/client/app/**/*.scss', '!src/client/app/bower_modules/**/*.scss'], ['styles']);
+  gulp.watch(['src/client/app/**/*.js'], ['scripts']);
+  gulp.watch(['src/client/app/**/*.html'], ['html']);
+  gulp.watch(['src/client/app/**/*.scss'], ['styles']);
 
   //gulp.watch(['src/client/app/**']).on('change', livereload.changed);
 

@@ -1,128 +1,113 @@
-rootApp.service("cards", function ($http) {
+rootApp.service("cards", function ($http, $q) {
 
-    var self = this;
-    this.cards = [];
+    var url = "http://pkm.52webdesigns.com/rest/cards.php?";
+	var cache = [];
+
+
+	this.get = get;
+	this.getById = getById;
+	this.matching = matching;
+	this.typeOf = typeOf;
+
 
     /*
      * Loads card objects from the server.
      */
-    this.get = function (filters, overwriteCards, callback ) {
+	function get(filters) {
+		var gettingCards = $q.defer();
+		/*Defaults*/
+		if (angular.isUndefined(filters)) filters = {};
+		if (angular.isUndefined(filters.id)) filters.id = [];
+        if (angular.isUndefined(filters.name)) filters.name = "";
+        if (angular.isUndefined(filters.types)) filters.types = [];
+        if (angular.isUndefined(filters.properties)) filters.properties = [];
+        if (angular.isUndefined(filters.pageNo)) filters.pageNo = "";
+        if (angular.isUndefined(filters.perPage)) filters.perPage = "";
+		/*Type Check*/
+        if (!Array.isArray(filters.id)) filters.id = [filters.id];
 
+        $http.get(url + "id=" + filters.id.toString() + "&name=" + filters.name + "&types=" + filters.types.toString() + "&properties=" + filters.properties.toString() + "&pageNo=" + filters.pageNo  + "&perPage=" + filters.perPage).then(function (response) {
+			cacheCards(response.data.cards);
+			gettingCards.resolve(response.data);
+        });
+		return gettingCards.promise;
+    }
 
-        var url = "http://pkm.52webdesigns.com/rest/cards.php?";
+	function getById(id){
+		var deffered = $q.defer();
 
-        if (filters === false) {
-            $http.get(url).then(function (response) {
-                if (overwriteCards) {
-                    self.cards = response.data;
-                }
-                if( angular.isFunction(callback)){
-                  callback(response);
-                }
+		var cache = checkCardCache(id);
+		if(cache !== false){
+			deffered.resolve(cache);
+		}else{
+			$http.get(url + "id=" + id).then(function (response) {
+				cacheCards(response.data.cards);
+				deffered.resolve(response.data);
+	        });
+		}
+		return deffered.promise;
+	}
+
+	function matching(id) {
+		var gettingMatches = $q.defer();
+		$http.get("http://pkm.52webdesigns.com/rest/matches.php?id=" + id).then(function (response) {
+			var matchingIds = [];
+            response.data.forEach(function (card) {
+                matchingIds.push(card.rel);
             });
-        }
-        else {
-
-            if (typeof filters.id === "undefined") filters.id = [];
-            if (typeof filters.name === "undefined") filters.name = "";
-            if (typeof filters.types === "undefined") filters.types = [];
-            if (typeof filters.properties === "undefined") filters.properties = [];
-
-            if (typeof filters.page === "undefined") filters.page = "";
-            if (typeof filters.pagePer === "undefined") filters.pagePer = "";
-
-
-            if (!Array.isArray(filters.id)) filters.id = [filters.id];
-
-            var preLoaded = this.checkLocalCards(filters.id);
-
-            if (preLoaded.foundAll) {
-                if (overwriteCards) {
-                    self.cards = preLoaded.cards;
-                }
-                if( angular.isFunction(callback) ){
-                  callback({ data: preLoaded.cards });
-                }
+            if (matchingIds.length > 0) {
+				get({ id: matchingIds }).then(function(response){
+					gettingMatches.resolve(response);
+				});
             }
-            else {
-                console.log("http call for more cards");
-                $http.get(url + "id=" + filters.id.toString() + "&name=" + filters.name + "&types=" + filters.types.toString() + "&properties=" + filters.properties.toString() + "&page=" + filters.page  + "&pagePer=" + filters.pagePer).then(function (response) {
-                    response.data = response.data.concat(preLoaded.cards);
-                    if (overwriteCards) {
-                        self.cards = response.data;
-                    }
-                    if( angular.isFunction(callback)){
-                      callback(response);
-                    }
-                });
-            }
-        }
-        return this;
-    };
+        });
+		return gettingMatches.promise;
+    }
 
     /*
-     * reutns the type of card,
+     * reutns the type of from the server
      */
-    this.typeof = function (id, simple) {
-        if (typeof id === "object") id = id.id;
+    function typeOf(id, simple){
 
-        var checkedLocally = this.checkLocalCards(id);
+		var gettingTypeOf = $q.defer();
+        if (angular.isObject(id)) id = id.id;
+		this.get({id:id}).then(function(cards){
+			cacheCards(cards[0]);
+			if (simple) {
+	            var pokemeon = ["Grass", "Lightning", "Darkness", "Fairy", "Fire", "Psychic", "Metal", "Dragon", "Water", "Fighting", "Colorless"];
+	            var trainer = ["Trainer-Item", "Trainer-Stadium", "Trainer-Supporter", "Pokemon Tool"];
+	            var engergy = ["Energy"];
+	            if (pokemeon.indexOf(cards[0].type) != -1) gettingTypeOf.resolve('pokemon');
+	            if (trainer.indexOf(cards[0].type) != -1) gettingTypeOf.resolve('trainer');
+	            if (engergy.indexOf(cards[0].type) != -1) gettingTypeOf.resolve('energy');
+	        }
+		});
+        return gettingTypeOf.promise;
+    }
 
-        if (simple) {
-            var pokemeon = ["Grass", "Lightning", "Darkness", "Fairy", "Fire", "Psychic", "Metal", "Dragon", "Water", "Fighting", "Colorless"];
-            var trainer = ["Trainer-Item", "Trainer-Stadium", "Trainer-Supporter", "Pokemon Tool"];
-            var engergy = ["Energy"];
+	function checkCardCache(id){
+		for(var i = 0; i < cache.length; i++){
+			if( id === cache[i].id){
+				return cache[i];
+			}
+		}
+		return false;
+	}
 
-            if (pokemeon.indexOf(checkedLocally.cards[0].type) != -1) return "pokemon";
-            if (trainer.indexOf(checkedLocally.cards[0].type) != -1) return "trainer";
-            if (engergy.indexOf(checkedLocally.cards[0].type) != -1) return "energy";
-        }
-
-        return checkedLocally.cards[0].type;
-    };
-
-    /*
-     *  Check if the card is already loaded locally
-     */
-    this.checkLocalCards = function (ids) {
-
-        var cards = [];
-        var deleteIndex = [];
-        var foundAll = false;
-        var foundSome = false;
-        var foundNone = true;
-
-        if (typeof ids !== "object") ids = [ids];
-
-        ids.forEach(function (id, index) {
-
-            self.cards.forEach(function (card) {
-
-                if (id == card.id) {
-                    cards.push(card);
-                    deleteIndex.push(index);
-                }
-            });
-        });
-
-        deleteIndex.reverse().forEach(function (index) {
-            ids.splice(index, 1);
-        });
-
-        if (deleteIndex.length > 0 && ids.length < 1) {
-            foundAll = true;
-        }
-
-        return {
-            id: ids,
-            cards: cards,
-            foundAll: foundAll,
-        };
-    };
-
-
-    /*====================================  INIT  ===============================================*/
-
-    this.get(false, true);
-
+	function cacheCards(cards){
+		cardsLoop:
+		for(var i = 0; i < cards.length; i++){
+			var found = true;
+			cacheLoop:
+			for(var j = 0; j < cache.length; j++){
+				if( cards[i].id === cache[j].id){
+					found = false;
+					break cacheLoop;
+				}
+			}
+			if(found){
+				cache.push(cards[i]);
+			}
+		}
+	}
 });

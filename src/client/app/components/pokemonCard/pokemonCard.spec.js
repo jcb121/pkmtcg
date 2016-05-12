@@ -28,13 +28,34 @@ describe('pokemonCard.js', function(){
 		$rootScope = _$rootScope_;
 	}));
 
-	beforeEach(function(){
-		var element = $compile("<pokemon-card></pokemon-card>")($rootScope);
-		$rootScope.$digest();
-		$scope = element.isolateScope() || element.scope();
+
+	describe('When card data is passed into the directive',function(){
+		beforeEach(function(){
+			var element = $compile('<pokemon-card data="{name:\'mock\'}"></pokemon-card>')($rootScope);
+			$rootScope.$digest();
+			$scope = element.isolateScope() || element.scope();
+		});
+		it('should bind the data to card', function() {
+			expect($scope.card.name).toEqual('mock');
+
+		});
+
+
 	});
-	it('should bind the decks service to $scope', function() {
-		console.log($scope);
-		//expect($scope.MarkedCards ).toEqual("markedCards");
+
+	describe('When card data is absent in the directive',function(){
+		beforeEach(function(){
+			var element = $compile('<pokemon-card id="55"></pokemon-card>')($rootScope);
+			$rootScope.$digest();
+			$scope = element.isolateScope() || element.scope();
+		});
+		it('should bind the decks service to $scope', function() {
+
+			expect(cardsSeriveMock.get ).toHaveBeenCalledWith({id:55});
+		});
 	});
+
+
+
+
 });

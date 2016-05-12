@@ -28,6 +28,44 @@ gulp.task('test', function(done){
 	}, done).start();
 });
 
+
+
+
+
+
+gulp.task('docs', function(){
+	runSequence('docs-clean', 'docs-create', 'docs-serve', 'docs-watch');
+});
+
+gulp.task('docs-create', [], function () {
+
+	gulpDocs = require('gulp-ngdocs');
+	var options = {
+	};
+
+	return gulp.src(['src/client/app/**/*.js', '!src/client/app/**/*.spec.js', '!src/client/app/bower_modules/**/*.js' ])
+    	.pipe(gulpDocs.process(options))
+    	.pipe(gulp.dest('dist/docs'));
+});
+
+gulp.task('docs-serve', function(){
+	connect.server({
+  		root: 'dist/docs/'
+    });
+
+});
+
+gulp.task('docs-watch', function(){
+	 gulp.watch(['src/client/app/**/*.js'], ['docs-create']);
+});
+
+gulp.task('docs-clean', function(){
+	 return del('dist/docs/**', '!dist/client');
+});
+
+
+
+
 gulp.task('styles', function() {
   return sass('src/client/app/assets/main.scss', { style: 'expanded' })
     .pipe(autoprefixer('last 2 version'))

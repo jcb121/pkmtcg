@@ -1,19 +1,25 @@
-rootApp.service("cardAbilities", function ($http) {
-    var self = this;
-    this.data = false;
-    this.info = [];
+rootApp.service("cardAbilities", function ($http, $q) {
+    var self = this,
+		url = "http://pkm.52webdesigns.com/rest/abilities.php";
 
-    this.get = function( callback ){
-      $http.get("http://pkm.52webdesigns.com/rest/abilities.php").then(function (response) {
-          if( angular.isFunction(callback)){
-            callback(response);
-          }
-          self.data = response.data;
-          self.data.forEach(function (row) {
-              self.info.push(row.name);
-          });
-      });
-    };
+	this.get = function(){
+		var deffered = $q.defer();
+		this.get = $http.get(url).then(function (response) {
+			deffered.resolve(response.data);
+		});
+		return deffered.promise;
+	};
 
-    this.get();
+	/*this.create = function(){
+
+	};*/
+
+	/*this.delete = function(){
+
+	};*/
+
+	/*this.edit = function(){
+
+	};*/
+
 });

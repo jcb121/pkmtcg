@@ -1,4 +1,4 @@
-describe('decks.service.js', function(){
+/* describe('decks.service.js', function(){
 
 	beforeEach(module('app'));
 
@@ -86,4 +86,4 @@ describe('decks.service.js', function(){
 			expect(decks.getDeck().id).toEqual(2);
 		});
 	});
-});
+}); */

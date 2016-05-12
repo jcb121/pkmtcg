@@ -1,12 +1,24 @@
-rootApp.service("cardTriggers", function ($http) {
-    var self = this;
-    this.data = false;
-    this.info = [];
+rootApp.service("cardTriggers", function ($http, $q) {
+    var self = this,
+		url = "http://pkm.52webdesigns.com/rest/triggers.php?";
 
-    this.get = $http.get("http://pkm.52webdesigns.com/rest/triggers.php").then(function (response) {
-        self.data = response.data;
-        self.data.forEach(function (row) {
-            self.info.push(row.name);
-        });
-    });
+	this.get = function(){
+		var deffered = $q.defer();
+		this.get = $http.get(url).then(function (response) {
+			deffered.resolve(response.data);
+		});
+		return deffered.promise;
+	};
+
+	/*this.create = function(){
+
+	};*/
+
+	/*this.delete = function(){
+
+	};*/
+
+	/*this.edit = function(){
+
+	};*/
 });

@@ -6,55 +6,15 @@
   <link rel="stylesheet" type="text/css" href="bower_modules/angular-material/angular-material.min.css">
 
 </head>
-<body ng-app="app" ng-controller="masterController">
-
-<div layout="column" layout-fill>
-	<md-toolbar>
-		<div class="md-toolbar-tools">
-			<md-button class="md-icon-button" aria-label="Settings" ng-click="openSideNav('left');">
-	          <i class="material-icons">menu</i>
-	        </md-button>
-			<h2>PKMTCG</h2>
-		</div>
-	</md-toolbar>
-	<md-content flex layout-padding>
-		<pokemon-decks></pokemon-decks>
-    	<pokemon-cards></pokemon-cards>
-    	<card-paginator page-Count="5"></card-paginator>
-    </md-content>
-</div>
-
-<card-view></card-view>
-
-<md-sidenav class="md-sidenav-left"
-    md-component-id="left"
-    md-disable-backdrop
-    md-whiteframe="4">
-	<!-- md-is-locked-open="$mdMedia('gt-md')" -->
-	<md-toolbar class="md-theme-indigo" layout="row" layout-align="space-between center">
-	    <h1 class="md-toolbar-tools">Sidenav Left</h1>
-		<md-button class="md-icon-button" ng-click="closeSideNav('left')">
-			<i class="material-icons">close</i>
-		</md-button>
-	</md-toolbar>
-	<md-content layout-padding>
-		<deck-loader></deck-loader>
-	    <!--<card-form></card-form>-->
-		<!--<card-filter></card-filter>-->
-	</md-content>
-</md-sidenav>
-
-
-
-
-
-
-  <footer>
-    <script src="bower_modules/angular/angular.js"></script>
-    <script src="bower_modules/angular-material/angular-material.js"></script>
-    <script src="bower_modules/angular-animate/angular-animate.js"></script>
-    <script src="bower_modules/angular-messages/angular-messages.js"></script>
-    <script src="bower_modules/angular-aria/angular-aria.js"></script>
-    <script src="main.js"></script>
-  </footer>
+<body ng-app="app">
+	<ui-view></ui-view>
+	<footer>
+	    <script src="bower_modules/angular/angular.js"></script>
+	    <script src="bower_modules/angular-material/angular-material.js"></script>
+	    <script src="bower_modules/angular-animate/angular-animate.js"></script>
+	    <script src="bower_modules/angular-messages/angular-messages.js"></script>
+	    <script src="bower_modules/angular-aria/angular-aria.js"></script>
+		<script src="bower_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
+	    <script src="main.js"></script>
+	</footer>
 </body>

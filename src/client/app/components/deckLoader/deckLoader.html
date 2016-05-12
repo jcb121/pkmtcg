@@ -1,5 +1,5 @@
 <div layout="column" ng-init="panelState = false;">
-	<md-button ng-click="Decks.newDeck()">
+	<md-button ng-click="Decks.getDeck()">
 		<div layout="row" layout-align="space-between center">
 			<span>New Deck</span>
 			<i class="material-icons">add</i>
@@ -18,7 +18,7 @@
 		<div layout>
 			<md-input-container flex="100">
 				<label>Search By Name</label>
-				<md-autocomplete md-items="deck in Decks.webDecks.decks">
+				<md-autocomplete md-items="deck in decks">
 					<md-item-template>
 						<span ng-click="Decks.addDeck(deck.id)">{{deck.name}}</span>
 					</md-item-template>
@@ -30,7 +30,7 @@
 				<label>Browse All</label>
 				<md-select ng-model="deck">
 					<md-option
-						ng-repeat="deck in Decks.webDecks.decks track by deck.id"
+						ng-repeat="deck in decks track by deck.id"
 						ng-value="deck.id"
 						ng-click="Decks.addDeck(deck.id);">
 						{{deck.name}}

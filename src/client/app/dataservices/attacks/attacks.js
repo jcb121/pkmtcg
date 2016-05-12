@@ -1,21 +1,24 @@
-rootApp.service("cardAttacks", function ($http) {
-    var self = this;
-    this.data = false;
-    this.info = [];
+rootApp.service("cardAttacks", function ($http, $q) {
+    var self = this,
+		url = "http://pkm.52webdesigns.com/rest/attacks.php";
 
-    this.get = function(callback){
-      this.get = $http.get("http://pkm.52webdesigns.com/rest/attacks.php").then(function (response) {
+	this.get = function(){
+		var deffered = $q.defer();
+		this.get = $http.get(url).then(function (response) {
+			deffered.resolve(response.data);
+		});
+		return deffered.promise;
+	};
 
-          if( angular.isFunction(callback)){
-            callback(response);
-          }
+	/*this.create = function(){
 
-          self.data = response.data;
-          self.data.forEach(function (row) {
-              self.info.push(row.name);
-          });
+	};*/
 
-      });
-    };
-    this.get();
+	/*this.delete = function(){
+
+	};*/
+
+	/*this.edit = function(){
+
+	};*/
 });

@@ -7,29 +7,22 @@ rootApp.directive("pokemonCard", function () {
             deck: "=",
             id: "="
         },
-        controller: function ($scope, markedCards, activeCard, cards, decks, typeChecker ) {
-
+        controller: function ($scope, markedCards, cards, decks, $state ) {
             $scope.MarkedCards = markedCards;
-            $scope.ActiveCard = activeCard;
             $scope.Cards = cards;
             $scope.Decks = decks;
-            $scope.TypeChecker = typeChecker;
-
-
-            $scope.card = $scope.data;
 
 			if (typeof $scope.data === "undefined") {
-                $scope.Cards.get({ id: $scope.id }, false, function (response) {
-                    $scope.card = response.data[0];
-                });
-            }
+                $scope.Cards.getById($scope.id).then(function(card){
+					$scope.card = card;
+				});
+            }else{
+				$scope.card = $scope.data;
+			}
 
-        },
-        link: function (scope, element, attrs, ngModel) {
-            element.find("img").on("load", function () {
-                scope.imgReady = true;
-                scope.$apply();
-            });
+			$scope.goToCardView = function(){
+				$state.go("cardView", {cardId:$scope.card.id});
+			};
         }
     };
 });

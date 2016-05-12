@@ -31,25 +31,27 @@ rootApp.filter('removeTrainer', [function () {
  * Used in ng-repeats to filter cards.
  * Not sure how this will work with page numbers.
  */
-rootApp.filter('filterOutCards', function (cards) {
+rootApp.filter('filterOutCards', function () {
     return function (items, types) {
-        var filtered = [];
+		return items;
+		/*var filtered = [];
 
-        types.forEach(function (type) {
-            items.forEach(function (item, index) {
-                var ctype = cards.typeof(item.id, true);
-                if (ctype == type) item = false;
-            });
-        });
+		items.forEach(function(card){
+			var pokemeon = ["Grass", "Lightning", "Darkness", "Fairy", "Fire", "Psychic", "Metal", "Dragon", "Water", "Fighting", "Colorless"];
+			var trainer = ["Trainer-Item", "Trainer-Stadium", "Trainer-Supporter", "Pokemon Tool"];
+			var engergy = ["Energy"];
 
-        items.forEach(function (item) {
-            if (item !== false) {
-                filtered.push(item);
-            }
-        });
+			if (pokemeon.indexOf(card.type) != -1) card.type = "pokemon";
+			if (trainer.indexOf(card.type) != -1) card.type = "trainer";
+			if (engergy.indexOf(card.type) != -1) card.type = "engergy";
 
-
-        return filtered;
+			types.forEach(function (type) {
+	            if(type === card.type){
+					filtered.push(card);
+				}
+	        });
+		});
+        return filtered;*/
     };
 });
 

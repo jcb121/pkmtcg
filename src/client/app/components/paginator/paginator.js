@@ -1,19 +1,20 @@
 rootApp.directive("cardPaginator", function () {
     return {
         transclude: false,
-        require: [],
+        require: 'ngModel',
         templateUrl: "components/paginator/paginator.html",
         scope: {
-            fetch: '=',
-            current: '=',
+            ngModel: '=',
             pageCount: '='
         },
         controller: function ($scope) {
 
-            $scope.pages = [];
-            for( var i = 0; i < $scope.pageCount; i++){
-              $scope.pages.push(i);
-            }
+			$scope.buildPaginator = function(){
+				$scope.pages = [];
+				for( var i = 0; i < $scope.pageCount; i++){
+	              $scope.pages.push(i);
+	            }
+			};
 
 			$scope.next = function(){
 				console.log('implement me');
@@ -21,13 +22,13 @@ rootApp.directive("cardPaginator", function () {
 			$scope.prev = function(){
 				console.log('implement me');
 			};
-			$scope.goTo = function(){
-				console.log('implement me');
+			$scope.goTo = function(pageNo){
+				$scope.currentPage = pageNo;
 			};
 
         },
-        link: function (scope, element, attrs, ngModel) {
+		link: function (scope, element, attrs, ngModel) {
 
-        }
+        },
     };
 });

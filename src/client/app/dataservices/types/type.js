@@ -1,31 +1,24 @@
-rootApp.service('types', function($http){
+rootApp.service('cardTypes', function($http, $q){
+	var self = this,
+		url = "http://pkm.52webdesigns.com/rest/types.php?";
 
-  this.load = function(callback){
-    this.get = $http.get("http://pkm.52webdesigns.com/rest/types.php").then(function (response) {
-      callback(response.data);
-    });
-  };
-  /*
-   * INIT SCRIPT
-   */
-  this.load(false, function (response) {
-      this.data = response;
-      response.forEach(function (type) {
-          this.info.push(type.name);
-      });
-  });
-});
+	this.get = function(){
+		var deffered = $q.defer();
+		this.get = $http.get(url).then(function (response) {
+			deffered.resolve(response.data);
+		});
+		return deffered.promise;
+	};
 
-//
-rootApp.service("cardTypes", function ($http) {
-    var self = this;
-    this.data = false;
-    this.info = [];
+	/*this.create = function(){
 
-    this.get = $http.get("http://pkm.52webdesigns.com/rest/types.php").then(function (response) {
-        self.data = response.data;
-        response.data.forEach(function (row) {
-            self.info.push(row.name);
-        });
-    });
+	};*/
+
+	/*this.delete = function(){
+
+	};*/
+
+	/*this.edit = function(){
+
+	};*/
 });

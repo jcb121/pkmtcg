@@ -60,12 +60,10 @@
 					</md-button>
 				</md-card-content>
 			</md-card>
-
 			<span flex></span>
-
 			<md-card>
 				<md-card-content layout="row" layout-align="center center">
-					<md-button ng-disabled="setName" ng-click="Deck.saveDeck($index)" >
+					<md-button ng-disabled="setName" ng-click="Decks.create(deck)">
 						<div layout="row" layout-align="space-between center">
 							<span>Save Deck&nbsp;</span>
 							<i class="material-icons">save</i>
@@ -79,18 +77,13 @@
 					</md-button>
 				</md-card-content>
 			</md-card>
-
-
-
 		</div>
 		<article class="deckPanel" ng-class="{'active':Decks.isActive($index)}" ng-init="pokemonCols = 10">
-			<!-- {{Cards.typeof(card, true)}} -->
 			<md-grid-list md-cols="{{ pokemonCols }}" md-gutter="16px" md-row-height="1:1.4">
 				<md-grid-tile ng-repeat="card in deck.cards | filterOutCards:deckFilter">
 					<pokemon-card layout-fill deck="deckIndex" id="card.id"></pokemon-card>
 				</md-grid-tile>
 			</md-grid-list>
-
 		</article>
 	</md-tab>
 </md-tabs>

@@ -3,7 +3,25 @@ rootApp.directive("pokemonCards", function () {
         templateUrl: "components/pokemonCards/pokemonCards.html",
         scope: {},
         controller: function ($scope, cards) {
-            $scope.Cards = cards;
+			$scope.filters = {};
+			$scope.filters.pageNo = 0;
+			$scope.filters.perPage = 10;
+
+			$scope.totalCards = 0;
+			$scope.cards = [];
+			$scope.pageCount = 0;
+
+
+			cards.get().then(setCards);
+			$scope.$watch( function(){ return $scope.filters; }, function(filters){
+				cards.get(filters).then(setCards);
+			}, true);
+
+			function setCards(cards){
+				$scope.cards = cards.cards;
+				$scope.totalCards = cards.results;
+				$scope.pageCount = Math.ceil( cards.results / $scope.filters.perPage);
+			}
         }
     };
 });

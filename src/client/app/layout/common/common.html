@@ -1,0 +1,33 @@
+<div layout="column" layout-fill>
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="Settings" ng-click="openSideNav('left');">
+	          <i class="material-icons">menu</i>
+	        </md-button>
+			<h2>PKMTCG</h2>
+		</div>
+	</md-toolbar>
+
+	<ui-view></ui-view>
+
+</div>
+
+
+
+<md-sidenav class="md-sidenav-left"
+    md-component-id="left"
+    md-disable-backdrop
+    md-whiteframe="4">
+	<!-- md-is-locked-open="$mdMedia('gt-md')" -->
+	<md-toolbar class="md-theme-indigo" layout="row" layout-align="space-between center">
+	    <h1 class="md-toolbar-tools">Sidenav Left</h1>
+		<md-button class="md-icon-button" ng-click="closeSideNav('left')">
+			<i class="material-icons">close</i>
+		</md-button>
+	</md-toolbar>
+	<md-content layout-padding>
+		<deck-loader></deck-loader>
+	    <!--<card-form></card-form>-->
+		<!--<card-filter></card-filter>-->
+	</md-content>
+</md-sidenav>

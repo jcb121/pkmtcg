@@ -1,10 +1,24 @@
-rootApp.service("cardProperties", function ($http) {
-    var self = this;
-    this.data = false;
-    this.info = [];
+rootApp.service("cardProperties", function ($http, $q) {
+    var self = this,
+		url = "http://pkm.52webdesigns.com/rest/properties.php?";
 
-    this.get = $http.get("http://pkm.52webdesigns.com/rest/properties.php").then(function (response) {
-        self.data = response.data;
-        self.info = response.data;
-    });
+	this.get = function(){
+		var deffered = $q.defer();
+		this.get = $http.get(url).then(function (response) {
+			deffered.resolve(response.data);
+		});
+		return deffered.promise;
+	};
+
+	/*this.create = function(){
+
+	};*/
+
+	/*this.delete = function(){
+
+	};*/
+
+	/*this.edit = function(){
+
+	};*/
 });

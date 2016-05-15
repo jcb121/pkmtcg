@@ -1,33 +1,34 @@
 {
-	"name": "pkmtcg",
-	"homepage": "https://github.com/jcb121/pkmtcg",
-	"authors": [
-		"jcb121 <jcb.121@hotmail.co.uk>"
-	],
-	"description": "A trading card database",
-	"main": "src/client/app/app.js",
-	"moduleType": [
-		"amd"
-	],
-	"license": "MIT",
-	"private": true,
-	"ignore": [
-		"**/.*",
-		"node_modules",
-		"bower_components",
-		"test",
-		"tests"
-	],
-	"dependencies": {
-		"angular": "~1.4.8",
-		"angular-ui-router": "^0.2.18",
-		"angular-material": "~1.0.2",
-		"angular-mocks": "^1.5.5",
-		"material-design-icons": "^2.2.3"
-	},
-	"overrides":{
-		"material-design-icons":{
-			"main":"iconfont/MaterialIcons-Regular.*"
-		}
-	}
+  "name": "pkmtcg",
+  "homepage": "https://github.com/jcb121/pkmtcg",
+  "authors": [
+    "jcb121 <jcb.121@hotmail.co.uk>"
+  ],
+  "description": "A trading card database",
+  "main": "src/client/app/app.js",
+  "moduleType": [
+    "amd"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.8",
+    "angular-ui-router": "^0.2.18",
+    "angular-material": "~1.0.2",
+    "angular-mocks": "^1.5.5",
+    "material-design-icons": "^2.2.3",
+    "angular-password": "^1.0.1"
+  },
+  "overrides": {
+    "material-design-icons": {
+      "main": "iconfont/MaterialIcons-Regular.*"
+    }
+  }
 }

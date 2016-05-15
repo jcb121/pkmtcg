@@ -1,0 +1,64 @@
+<div flex layout="column" layout-align="center center">
+	<md-card>
+		<md-card-content>
+			<form name="loginForm">
+				<h2 ng-if="!showRegister">Login</h2>
+				<h2 ng-if="showRegister">Register</h2>
+				<div layout="row" layout-wrap>
+					<md-input-container flex="50">
+						<label>UserName</label>
+						<input name="userName" ng-model="user.username" type="text" ng-required="true">
+						<div ng-messages="loginForm.userName.$error">
+							<div ng-message="required">This field is required</div>
+						</div>
+					</md-input-container>
+					<md-input-container flex="50">
+						<label>Password</label>
+						<input name="password" ng-model="user.password" type="password" ng-required="true">
+						<div ng-messages="loginForm.Password.$error">
+							<div ng-message="required">This field is required</div>
+						</div>
+					</md-input-container>
+				</div>
+
+				<div ng-if="!showRegister">
+					<md-button ng-click="login();" ng-disabled="loginForm.$invalid">
+						Login
+					</md-button>
+					<md-button ng-click="toggleRegister();">
+						Or register
+					</md-button>
+				</div>
+
+				<div ng-if="showRegister" layout="row" layout-wrap>
+					<md-input-container flex="50">
+						<label>Email</label>
+						<input name="email" ng-model="user.email" type="email" ng-required="showRegister">
+						<div ng-messages="loginForm.email.$error">
+							<div ng-message="email">Not a valid email</div>
+							<div ng-message="required">This field is required</div>
+						</div>
+					</md-input-container>
+
+					<md-input-container flex="50">
+						<label>Repeat Password</label>
+						<input name="password2" ng-model="user.password2" type="password" ng-required="showRegister"  match-password="password">
+						<div ng-messages="loginForm.password2.$error">
+							<div ng-message="required">This field is required</div>
+							<div ng-message="passwordMatch">Passwords must match</div>
+						</div>
+					</md-input-container>
+				</div>
+
+				<div ng-if="showRegister">
+					<md-button ng-click="register();" ng-disabled="loginForm.$invalid">
+						Register
+					</md-button>
+					<md-button ng-click="toggleRegister();">
+						Back
+					</md-button>
+				</div>
+			</form>
+		</md-card-content>
+	</md-card>
+</div>

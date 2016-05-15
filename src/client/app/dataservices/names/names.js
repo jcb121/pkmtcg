@@ -4,7 +4,7 @@ rootApp.service("cardNames", function ($http, $q) {
 
 	this.get = function(){
 		var deffered = $q.defer();
-		this.get = $http.get(url).then(function (response) {
+		$http.get(url).then(function (response) {
 			deffered.resolve(response.data);
 		});
 		return deffered.promise;

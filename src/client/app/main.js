@@ -1,4 +1,4 @@
-var rootApp = angular.module('app', ['ngMaterial', 'ui.router']);
+var rootApp = angular.module('app', ['ngMaterial', 'ui.router', 'ngMessages', 'ngPassword' ]);
 
 rootApp.config(function($stateProvider, $urlRouterProvider) {
   //
@@ -10,14 +10,14 @@ rootApp.config(function($stateProvider, $urlRouterProvider) {
 		controller:'state.common'
 	})
 	.state('home', {
-    	url: "/home",
-    	templateUrl: "features/home/home.html",
+    	url: '/home',
+    	templateUrl: 'features/home/home.html',
 		controller:'home',
 		parent:'common'
     })
     .state('cardView', {
-    	url: "/cardView/:cardId",
-    	templateUrl: "features/cardView/cardView.html",
+    	url: '/cardView/:cardId',
+    	templateUrl: 'features/cardView/cardView.html',
     	controller:'cardView',
 		parent:'common',
 		resolve:{
@@ -28,5 +28,10 @@ rootApp.config(function($stateProvider, $urlRouterProvider) {
 				return cards.matching($stateParams.cardId);
 			}
 		}
-  	});
+	})
+	.state('login', {
+		url:'/login',
+		templateUrl: 'features/login/login.html',
+    	controller:'login'
+	});
 });

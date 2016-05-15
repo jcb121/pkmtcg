@@ -1,14 +1,14 @@
-rootApp.service('users', function($http, $q, serverSession){
+rootApp.service('users', function($http, $q, serverSession, $cookies){
 	var self = this;
 
 
 	this.login = function(user){
 		var url = "http://pkm.52webdesigns.com/rest/user/login.php?";
 		var deffered = $q.defer();
-		console.log(user);
 		$http.post(url, user).then(function (response) {
-			if(response.data.status === "logged in"){
-				serverSession = response.data.session;
+			if(response.data.success){
+				serverSession(response.data.session);
+				$cookies.put('serverSession', response.data.session);
 				deffered.resolve(response.data);
 			}
 			else{
@@ -22,7 +22,7 @@ rootApp.service('users', function($http, $q, serverSession){
 		var url = "http://pkm.52webdesigns.com/rest/user/create.php?";
 		var deffered = $q.defer();
 		$http.post(url, user).then(function (response) {
-			if(response.data.status === "user created"){
+			if(response.data.success){
 				deffered.resolve(response.data);
 			}
 			else{

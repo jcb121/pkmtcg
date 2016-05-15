@@ -1,6 +1,14 @@
-var rootApp = angular.module('app', ['ngMaterial', 'ui.router', 'ngMessages', 'ngPassword' ]);
+var rootApp = angular.module('app', ['ngMaterial', 'ui.router', 'ngMessages', 'ngPassword', 'ngCookies' ]);
 
-rootApp.value('serverSession', false);
+rootApp.factory('serverSession', function($cookies){
+	var session = $cookies.get('serverSession');
+	return function(key){
+		if( angular.isDefined(key)){
+			session = key;
+		}
+		return session;
+	};
+});
 
 rootApp.config(function($stateProvider, $urlRouterProvider) {
   //

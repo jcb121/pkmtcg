@@ -18,7 +18,7 @@
   * @description
   * holds deck objects
   */
-rootApp.service("decks", function ($http, $q, deck) {
+rootApp.service("decks", function ($http, $q, serverSession, deck) {
     var self = this,
 		cache = [],
 		url = "http://pkm.52webdesigns.com/rest/decks.php?";
@@ -50,18 +50,25 @@ rootApp.service("decks", function ($http, $q, deck) {
 	};
 
 	this.create = function(deck){
-		var user_id = 5;
+		var deffered = $q.defer();
+		var session = serverSession();
 		var cards = [];
 
-		deck.cards.forEach(function(card){
-			cards.push([ Number(card.id), Number(card.quantity)]);
-		});
-
-		var deffered = $q.defer();
-		$http.post(url, {user_id:user_id, name:deck.name, cards: cards}).then(function(response){
-			console.log(response);
-			deffered.resolve(response.data);
-		});
+		if(!session){
+			deffered.reject('No session');
+		}else{
+			deck.cards.forEach(function(card){
+				cards.push([ Number(card.id), Number(card.quantity)]);
+			});
+			$http.post(url, { session:session, name:deck.name, cards: cards}).then(function(response){
+				if(response.data.success){
+					deffered.resolve(response.data);
+				}
+				else{
+					deffered.reject(response.data);
+				}
+			});
+		}
 		return deffered.promise;
 	};
 

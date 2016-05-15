@@ -2,9 +2,10 @@ rootApp.directive("pokemonDecks", function () {
     return {
         templateUrl: "components/pokemonDecks/pokemonDecks.html",
         scope: {},
-        controller: function ($scope, decks) {
+        controller: function ($scope, decks, serverSession) {
 			$scope.Decks = decks;
-
+			$scope.serverSession = serverSession;
+			
 			$scope.addCard = function(id){
 				var index = this.indexOfCard(id);
 				if (index !== false) {

@@ -32,6 +32,39 @@ rootApp.service('users', function($http, $q, serverSession, $cookies){
 		return deffered.promise;
 	};
 
+	this.logout = function(){
+		var url = "http://pkm.52webdesigns.com/rest/user/logout.php?";
+		var deffered = $q.defer();
+		var user = {
+			session:serverSession()
+		};
+		$http.post(url, user).then(function (response) {
+			if(response.data.success){
+				serverSession(false);
+				deffered.resolve(response.data);
+			}
+			else{
+				deffered.reject(response.data);
+			}
+		});
+		return deffered.promise;
+	};
+
+	this.check = function(){
+		var url = "http://pkm.52webdesigns.com/rest/user/check.php?";
+		var deffered = $q.defer();
+		var user = {
+			session:serverSession()
+		};
+		$http.post(url, user).then(function (response) {
+			if(!response.data.success){
+				serverSession(false);
+			}
+			deffered.resolve(response.data);
+		});
+		return deffered.promise;
+	};
+
 	/*this.get = function(){
 		var deffered = $q.defer();
 		$http.get(url).then(function (response) {

@@ -65,6 +65,9 @@ rootApp.service("decks", function ($http, $q, serverSession, deck) {
 					deffered.resolve(response.data);
 				}
 				else{
+					if(response.data.auth){
+						serverSession(false);
+					}
 					deffered.reject(response.data);
 				}
 			});

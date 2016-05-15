@@ -1,6 +1,6 @@
 var rootApp = angular.module('app', ['ngMaterial', 'ui.router', 'ngMessages', 'ngPassword', 'ngCookies' ]);
 
-rootApp.factory('serverSession', function($cookies){
+rootApp.factory('serverSession', function($cookies, $q){
 	var session = $cookies.get('serverSession');
 	return function(key){
 		if( angular.isDefined(key)){
@@ -17,7 +17,12 @@ rootApp.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 	.state('common',{
 		templateUrl: "layout/common/common.html",
-		controller:'state.common'
+		controller:'state.common',
+		resolve:{
+			userAccess:function(users){
+				return users.check();
+			}
+		}
 	})
 	.state('home', {
     	url: '/home',

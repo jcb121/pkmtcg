@@ -5,6 +5,13 @@
 	          <i class="material-icons">menu</i>
 	        </md-button>
 			<h2>PKMTCG</h2>
+			<span flex></span>
+			<md-button ng-if="!serverSession()" ui-sref="login">
+				Login
+			</md-button>
+			<md-button ng-if="serverSession()" ng-click="users.logout();">
+				Logout
+			</md-button>
 		</div>
 	</md-toolbar>
 	<ui-view flex layout="column"></ui-view>

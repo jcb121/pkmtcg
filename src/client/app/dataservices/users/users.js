@@ -21,7 +21,12 @@ rootApp.service('users', function($http, $q){
 		var url = "http://pkm.52webdesigns.com/rest/user/create.php?";
 		var deffered = $q.defer();
 		$http.post(url, user).then(function (response) {
-			deffered.resolve(response.data);
+			if(response.data.status === "user created"){
+				deffered.resolve(response.data);
+			}
+			else{
+				deffered.reject(response.data);
+			}
 		});
 		return deffered.promise;
 	};

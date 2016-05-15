@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/jcb121/pkmtcg#readme",
   "devDependencies": {
+    "add-stream": "^1.0.0",
     "angular": "^1.5.5",
     "angular-mocks": "^1.5.5",
     "ansi-regex": "^2.0.0",
@@ -53,6 +54,7 @@
     "karma-jasmine": "^0.3.8",
     "karma-ng-html2js-preprocessor": "^0.2.2",
     "karma-phantomjs-launcher": "^1.0.0",
+    "main-bower-files": "^2.13.0",
     "run-sequence": "^1.1.5",
     "tiny-lr": "^0.2.1"
   },

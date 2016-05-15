@@ -8,18 +8,21 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     concat = require('gulp-concat'),
     notify = require('gulp-notify'),
-    cache = require('gulp-cache'),
-    livereload = require('gulp-livereload'),
+	addStream = require('add-stream'),
+
     del = require('del'),
     angularTemplateCache = require('gulp-angular-templatecache'),
-    addStream = require('add-stream'),
+
     connect = require('gulp-connect'),
     runSequence = require('run-sequence'),
-	karmaServer = require('karma').Server;
+	karmaServer = require('karma').Server,
+	mainBowerFiles = require('main-bower-files');
+	//livereload = require('gulp-livereload'),
+	//cache = require('gulp-cache'),
+	//
 
-gulp.task('clean', function() {
-    return del(['dist/client/**', '!dist/client', '!dist/client/bower_modules', '!dist/client/bower_modules/**']);
-});
+
+
 
 gulp.task('test', function(done){
 	new karmaServer({
@@ -27,11 +30,6 @@ gulp.task('test', function(done){
 		singleRun: true
 	}, done).start();
 });
-
-
-
-
-
 
 gulp.task('docs', function(){
 	runSequence('docs-clean', 'docs-create', 'docs-serve', 'docs-watch');
@@ -66,6 +64,17 @@ gulp.task('docs-clean', function(){
 
 
 
+gulp.task('clean', function() {
+    return del(['dist/client/**', '!dist/client']);
+});
+
+
+gulp.task('bower', function() {
+    return gulp.src(mainBowerFiles())
+    .pipe(gulp.dest('dist/client/assets'));
+});
+
+
 gulp.task('styles', function() {
   return sass('src/client/app/assets/main.scss', { style: 'expanded' })
     .pipe(autoprefixer('last 2 version'))
@@ -96,18 +105,8 @@ gulp.task('images', function() {
 });
 
 gulp.task('html', function(){
-
-	//gulp.src(['src/client/app/**/*.html', 'src/client/app/*.html'])
-	//.pipe(rename({dirname: 'components'}))
-	//.pipe(gulp.dest('dist/client'));
-
-	gulp.src( 'src/client/app/*.html')
+	return gulp.src( ['src/client/app/*.html', 'src/client/app/**/*.html'])
 	.pipe(gulp.dest('dist/client'));
-
-	gulp.src( 'src/client/app/**/*.html')
-	.pipe(gulp.dest('dist/client'));
-
-
 });
 
 gulp.task('connect', function() {
@@ -116,24 +115,12 @@ gulp.task('connect', function() {
   });
 });
 
-gulp.task('default', ['clean'], function() { /*'clean', */
-
-  gulp.start('styles', 'scripts', 'html' ,'connect', 'watch');
-
-  //runSequence([]);
-
+gulp.task('default', function() { /*'clean', */
+  runSequence('clean',['bower', 'styles', 'scripts', 'html'], ['connect', 'watch']);
 });
 
 gulp.task('watch', function() {
-
-  // Create LiveReload server
-  //livereload.listen();
-
-  // Watch any files in dist/, reload on change
   gulp.watch(['src/client/app/**/*.js'], ['scripts']);
   gulp.watch(['src/client/app/**/*.html'], ['html']);
   gulp.watch(['src/client/app/**/*.scss'], ['styles']);
-
-  //gulp.watch(['src/client/app/**']).on('change', livereload.changed);
-
 });

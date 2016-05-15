@@ -1,4 +1,4 @@
-rootApp.service('users', function($http, $q){
+rootApp.service('users', function($http, $q, serverSession){
 	var self = this;
 
 
@@ -8,6 +8,7 @@ rootApp.service('users', function($http, $q){
 		console.log(user);
 		$http.post(url, user).then(function (response) {
 			if(response.data.status === "logged in"){
+				serverSession = response.data.session;
 				deffered.resolve(response.data);
 			}
 			else{

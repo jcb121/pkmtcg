@@ -1,5 +1,7 @@
 var rootApp = angular.module('app', ['ngMaterial', 'ui.router', 'ngMessages', 'ngPassword' ]);
 
+rootApp.value('serverSession', false);
+
 rootApp.config(function($stateProvider, $urlRouterProvider) {
   //
   // For any unmatched url, redirect to /state1

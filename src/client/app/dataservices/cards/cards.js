@@ -14,6 +14,7 @@ rootApp.service("cards", function ($http, $q) {
      * Loads card objects from the server.
      */
 	function get(filters) {
+		filters = angular.copy(filters);
 		var gettingCards = $q.defer();
 		/*Defaults*/
 		if (angular.isUndefined(filters)) filters = {};

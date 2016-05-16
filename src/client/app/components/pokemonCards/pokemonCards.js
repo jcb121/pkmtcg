@@ -11,8 +11,6 @@ rootApp.directive("pokemonCards", function () {
 			$scope.cards = [];
 			$scope.pageCount = 0;
 
-
-			cards.get().then(setCards);
 			$scope.$watch( function(){ return $scope.filters; }, function(filters){
 				cards.get(filters).then(setCards);
 			}, true);

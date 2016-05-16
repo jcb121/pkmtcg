@@ -1,14 +1,13 @@
-rootApp.service('users', function($http, $q, serverSession, $cookies){
+rootApp.service('users', function($http, $q, $cookies){
 	var self = this;
-
+	var session = $cookies.get('serverSession');
 
 	this.login = function(user){
 		var url = "http://pkm.52webdesigns.com/rest/user/login.php?";
 		var deffered = $q.defer();
 		$http.post(url, user).then(function (response) {
 			if(response.data.success){
-				serverSession(response.data.session);
-				$cookies.put('serverSession', response.data.session);
+				self.setSession(response.data.session);
 				deffered.resolve(response.data);
 			}
 			else{
@@ -36,11 +35,11 @@ rootApp.service('users', function($http, $q, serverSession, $cookies){
 		var url = "http://pkm.52webdesigns.com/rest/user/logout.php?";
 		var deffered = $q.defer();
 		var user = {
-			session:serverSession()
+			session:this.getSession()
 		};
 		$http.post(url, user).then(function (response) {
 			if(response.data.success){
-				serverSession(false);
+				self.session(false);
 				deffered.resolve(response.data);
 			}
 			else{
@@ -50,19 +49,28 @@ rootApp.service('users', function($http, $q, serverSession, $cookies){
 		return deffered.promise;
 	};
 
-	this.check = function(){
+	this.checkSession = function(){
 		var url = "http://pkm.52webdesigns.com/rest/user/check.php?";
 		var deffered = $q.defer();
 		var user = {
-			session:serverSession()
+			session:this.getSession()
 		};
 		$http.post(url, user).then(function (response) {
 			if(!response.data.success){
-				serverSession(false);
+				self.setSession(false);
 			}
 			deffered.resolve(response.data);
 		});
 		return deffered.promise;
+	};
+
+	this.setSession = function(key){
+		session = key;
+		$cookies.put('serverSession', key);
+	};
+
+	this.getSession = function(){
+		return session;
 	};
 
 	/*this.get = function(){

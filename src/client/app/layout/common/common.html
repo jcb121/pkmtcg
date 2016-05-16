@@ -6,10 +6,10 @@
 	        </md-button>
 			<h2>PKMTCG</h2>
 			<span flex></span>
-			<md-button ng-if="!serverSession()" ui-sref="login">
+			<md-button ng-if="!Users.getSession()" ui-sref="login">
 				Login
 			</md-button>
-			<md-button ng-if="serverSession()" ng-click="users.logout();">
+			<md-button ng-if="Users.getSession()" ng-click="users.logout();">
 				Logout
 			</md-button>
 		</div>

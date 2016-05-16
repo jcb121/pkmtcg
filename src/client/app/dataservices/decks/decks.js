@@ -18,7 +18,7 @@
   * @description
   * holds deck objects
   */
-rootApp.service("decks", function ($http, $q, serverSession, deck) {
+rootApp.service("decks", function ($http, $q, users, deck) {
     var self = this,
 		cache = [],
 		url = "http://pkm.52webdesigns.com/rest/decks.php?";
@@ -51,7 +51,7 @@ rootApp.service("decks", function ($http, $q, serverSession, deck) {
 
 	this.create = function(deck){
 		var deffered = $q.defer();
-		var session = serverSession();
+		var session = users.getSession();
 		var cards = [];
 
 		if(!session){
@@ -66,7 +66,7 @@ rootApp.service("decks", function ($http, $q, serverSession, deck) {
 				}
 				else{
 					if(response.data.auth){
-						serverSession(false);
+						users.setSession(false);
 					}
 					deffered.reject(response.data);
 				}

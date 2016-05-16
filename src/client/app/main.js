@@ -1,15 +1,5 @@
 var rootApp = angular.module('app', ['ngMaterial', 'ui.router', 'ngMessages', 'ngPassword', 'ngCookies' ]);
 
-rootApp.factory('serverSession', function($cookies, $q){
-	var session = $cookies.get('serverSession');
-	return function(key){
-		if( angular.isDefined(key)){
-			session = key;
-		}
-		return session;
-	};
-});
-
 rootApp.config(function($stateProvider, $urlRouterProvider) {
   //
   // For any unmatched url, redirect to /state1
@@ -17,12 +7,7 @@ rootApp.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 	.state('common',{
 		templateUrl: "layout/common/common.html",
-		controller:'state.common',
-		resolve:{
-			userAccess:function(users){
-				return users.check();
-			}
-		}
+		controller:'state.common'
 	})
 	.state('home', {
     	url: '/home',

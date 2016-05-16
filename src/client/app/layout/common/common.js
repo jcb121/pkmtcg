@@ -1,8 +1,7 @@
-rootApp.controller('state.common', function ($scope, $mdSidenav, serverSession, users ) {
+rootApp.controller('state.common', function ($scope, $mdSidenav, users ) {
 
-	$scope.serverSession = serverSession;
-	$scope.users = users;
-	
+	$scope.Users = users;
+
 	$scope.openSideNav = function(location){
 		$mdSidenav(location).open();
 	};

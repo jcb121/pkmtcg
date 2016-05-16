@@ -135,14 +135,14 @@ rootApp.service("decks", function ($http, $q, users, deck) {
     };
 
 	/**
-	* @ngdoc method
-	* @name addDeck
-	* @methodOf rootApp.service:decks
-	* @description
-	* Add a deck from the server or create one if no deck is found
-	* @param {int} id id of deck
-	* @returns {object} deck object
-	*/
+	 * @ngdoc method
+	 * @name addDeck
+	 * @methodOf rootApp.service:decks
+	 * @description
+	 * Add a deck from the server or create one if no deck is found
+	 * @param {int} id id of deck
+	 * @returns {object} deck object
+	 */
 	this.addDeck = function (id) {
 		var deffered = $q.defer();
 		if( angular.isDefined(id)){
@@ -180,9 +180,13 @@ rootApp.service("decks", function ($http, $q, users, deck) {
     this.getDeck = function (index) {
 		var tempDeck;
 		if (angular.isUndefined(index)){
-			tempDeck = this.newDeck();
-			this.decks.unshift(tempDeck);
-			return tempDeck;
+			if(angular.isUndefined( this.decks[this.activeDeck])){
+				tempDeck = this.newDeck();
+				this.decks.unshift(tempDeck);
+				return tempDeck;
+			}else{
+				return this.decks[this.activeDeck];
+			}
 		}
 		else if( angular.isUndefined(this.decks[index])) {
 			tempDeck = this.newDeck();

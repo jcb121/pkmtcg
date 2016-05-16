@@ -1,13 +1,13 @@
 <nav layout="row" layout-align="center center">
-	<md-button class="md-icon-button" ng-click="next()">
+	<md-button class="md-icon-button" ng-click="prev()" ng-disabled="!(pageNo >= 1);">
 		<i class="material-icons">arrow_back</i>
 	</md-button>
 
-	<md-button class="md-icon-button" ng-repeat="page in pages" ng-click="goTo($index)">
+	<md-button class="md-icon-button" ng-repeat="page in pages" ng-click="goTo($index)" ng-class="{'md-accent': pageNo === $index }">
 		{{$index +1 }}
 	</md-button>
 
-	<md-button class="md-icon-button" ng-click="prev()">
+	<md-button class="md-icon-button" ng-click="next()" ng-disabled="!(pageNo < pageCount-1);">
 		<i class="material-icons">arrow_forward</i>
 	</md-button>
 </nav>

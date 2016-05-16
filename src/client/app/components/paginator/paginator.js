@@ -4,31 +4,38 @@ rootApp.directive("cardPaginator", function () {
         require: 'ngModel',
         templateUrl: "components/paginator/paginator.html",
         scope: {
-            ngModel: '=',
+			pageNo: '=?',
             pageCount: '='
         },
         controller: function ($scope) {
 
-			$scope.buildPaginator = function(){
+			$scope.$watch(function(){
+				return $scope.pageCount;
+			}, function(val){
+				buildPaginator(val);
+			});
+
+			function buildPaginator(count){
 				$scope.pages = [];
-				for( var i = 0; i < $scope.pageCount; i++){
+				for( var i = 0; i < count; i++){
 	              $scope.pages.push(i);
 	            }
-			};
+			}
 
 			$scope.next = function(){
-				console.log('implement me');
+				if($scope.pageNo < $scope.pageCount -1 ){
+					$scope.pageNo++;
+				}
+
 			};
 			$scope.prev = function(){
-				console.log('implement me');
+				if($scope.pageNo >= 1){
+					$scope.pageNo--;
+				}
 			};
 			$scope.goTo = function(pageNo){
-				$scope.currentPage = pageNo;
+				$scope.pageNo = pageNo;
 			};
-
-        },
-		link: function (scope, element, attrs, ngModel) {
-
         },
     };
 });

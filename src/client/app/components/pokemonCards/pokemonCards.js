@@ -5,7 +5,7 @@ rootApp.directive("pokemonCards", function () {
         controller: function ($scope, cards) {
 			$scope.filters = {};
 			$scope.filters.pageNo = 0;
-			$scope.filters.perPage = 10;
+			$scope.filters.perPage = 14;
 
 			$scope.totalCards = 0;
 			$scope.cards = [];

@@ -43,7 +43,7 @@ rootApp.service("cards", function ($http, $q) {
 		}else{
 			$http.get(url + "id=" + id).then(function (response) {
 				cacheCards(response.data.cards);
-				deffered.resolve(response.data);
+				deffered.resolve(response.data.cards);
 	        });
 		}
 		return deffered.promise;

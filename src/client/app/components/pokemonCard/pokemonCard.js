@@ -12,9 +12,9 @@ rootApp.directive("pokemonCard", function () {
             $scope.Cards = cards;
             $scope.Decks = decks;
 
-			if (typeof $scope.data === "undefined") {
-                $scope.Cards.getById($scope.id).then(function(card){
-					$scope.card = card;
+			if (angular.isUndefined($scope.data)) {
+				$scope.Cards.getById($scope.id).then(function(card){
+					$scope.card = card[0];
 				});
             }else{
 				$scope.card = $scope.data;

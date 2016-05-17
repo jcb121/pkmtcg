@@ -1,5 +1,5 @@
 <div ng-click="goToCardView()" class="cardImage md-whiteframe-1dp" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
-    <img layout-fill ng-src="{{card.url}}" />
+    <img ng-show"card.url" layout-fill ng-src="{{card.url}}" />
 
 	<div class="marked" ng-show="MarkedCards.check(card.id)"
          ng-click="MarkedCards.toggle(card)">

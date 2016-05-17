@@ -2,7 +2,7 @@ rootApp.directive("pokemonCards", function () {
     return {
         templateUrl: "components/pokemonCards/pokemonCards.html",
         scope: {},
-        controller: function ($scope, cards) {
+        controller: function ($scope, cards) {	
 			$scope.filters = {};
 			$scope.filters.pageNo = 0;
 			$scope.filters.perPage = 14;

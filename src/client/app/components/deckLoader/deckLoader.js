@@ -3,9 +3,13 @@ rootApp.directive("deckLoader", function () {
         transclude: true,
         templateUrl: "components/deckLoader/deckLoader.html",
         scope: {},
-        controller: function ($scope, decks ) {
+        controller: function ($scope, decks, users ) {
 			$scope.Decks = decks;
-			decks.get("").then(function(decks){
+
+			decks.get({user_id:users.user_id}).then(function(decks){
+				$scope.userDecks = decks;
+			});
+			decks.get().then(function(decks){
 				$scope.decks = decks;
 			});
         }

@@ -15,6 +15,21 @@
 	</md-button>
 
 	<div ng-if="panelState">
+		<h5>Your decks</h5>
+		<div layout>
+			<md-input-container flex="100">
+				<label>Browse All</label>
+				<md-select ng-model="deck">
+					<md-option
+						ng-repeat="deck in userDecks track by deck.id"
+						ng-value="deck.id"
+						ng-click="Decks.addDeck(deck.id);">
+						{{deck.name}}
+					</md-option>
+				</md-select>
+			</md-input-container>
+		</div>
+		<h5>Global decks</h5>
 		<div layout>
 			<md-input-container flex="100">
 				<label>Search By Name</label>

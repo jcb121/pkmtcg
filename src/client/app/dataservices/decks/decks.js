@@ -31,9 +31,19 @@ rootApp.service("decks", function ($http, $q, users, deck) {
 	* Gets all decks from the server
 	* @returns {array} array of deck objects
 	*/
-	this.get = function(){
+	this.get = function(filters){
 		var deffered = $q.defer();
-		$http.get(url).then(function (response) {
+		filters = angular.copy(filters);
+		if (angular.isUndefined(filters)) filters = {};
+		if (angular.isUndefined(filters.id)) filters.id = "";
+		if (angular.isUndefined(filters.user_id)) filters.user_id = "";
+		if (angular.isUndefined(filters.name)) filters.name = "";
+		if (angular.isUndefined(filters.pageNo)) filters.pageNo = "";
+        if (angular.isUndefined(filters.perPage)) filters.perPage = "";
+		/*Type Check*/
+        if (!Array.isArray(filters.id)) filters.id = [filters.id];
+
+		$http.get(url + "id=" + filters.id.toString() + "&user_id=" + filters.user_id + "&name=" + filters.name + "&pageNo=" + filters.pageNo + "&perPage=" + filters.perPage).then(function (response) {
 			var decks = response.data;
 			decks.forEach(function (deck, index) {
                 var tempCards = JSON.parse(deck.cards);

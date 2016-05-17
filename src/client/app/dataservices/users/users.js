@@ -67,12 +67,17 @@ rootApp.service('users', function($http, $q, $cookies){
 
 	this.setSession = function(_session, id){
 		if(!_session){
-			id="";
+			session = undefined;
+			this.id = undefined;
+			$cookies.remove('serverSession');
+			$cookies.remove('user_id');
+
+		}else{
+			session = _session;
+			this.id = id;
+			$cookies.put('serverSession', _session);
+			$cookies.put('user_id', id);
 		}
-		session = _session;
-		this.id = id;
-		$cookies.put('serverSession', _session);
-		$cookies.put('user_id', id);
 	};
 
 	this.getSession = function(){

@@ -29,29 +29,18 @@
 				</md-select>
 			</md-input-container>
 		</div>
-		<h5>Global decks</h5>
+		<h5>Search decks</h5>
 		<div layout>
-			<md-input-container flex="100">
-				<label>Search By Name</label>
-				<md-autocomplete md-items="deck in decks">
-					<md-item-template>
-						<span ng-click="Decks.addDeck(deck.id)">{{deck.name}}</span>
-					</md-item-template>
-				</md-autocomplete>
-			</md-input-container>
-		</div>
-		<div layout>
-			<md-input-container flex="100">
-				<label>Browse All</label>
-				<md-select ng-model="deck">
-					<md-option
-						ng-repeat="deck in decks track by deck.id"
-						ng-value="deck.id"
-						ng-click="Decks.addDeck(deck.id);">
-						{{deck.name}}
-					</md-option>
-				</md-select>
-			</md-input-container>
+			<md-autocomplete
+				flex
+				md-items="deck in decks"
+				md-item-text="deck.name"
+				md-selected-item-change="Decks.addDeck(deck.id)"
+				md-floating-label="Search">
+				<md-item-template>
+					<span >{{deck.name}}</span>
+				</md-item-template>
+			</md-autocomplete>
 		</div>
 	</div>
 </div>

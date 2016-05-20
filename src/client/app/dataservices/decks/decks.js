@@ -175,6 +175,11 @@ rootApp.service("decks", function ($http, $q, users, deck) {
 				});
 			}
 		}
+		else{
+			tempDeck = this.newDeck();
+			this.decks.unshift(tempDeck);
+			deffered.resolve(tempDeck);
+		}
 		return deffered.promise;
 	};
 

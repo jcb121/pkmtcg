@@ -6,9 +6,14 @@ rootApp.directive("deckLoader", function () {
         controller: function ($scope, decks, users ) {
 			$scope.Decks = decks;
 
-			decks.get({user_id:users.user_id}).then(function(decks){
-				$scope.userDecks = decks;
-			});
+			if(users.user_id){
+				decks.get({user_id:users.user_id}).then(function(decks){
+					$scope.userDecks = decks;
+				});
+			}else{
+				$scope.userDecks = [{name:"Create a deck"}];
+			}
+
 			decks.get().then(function(decks){
 				$scope.decks = decks;
 			});

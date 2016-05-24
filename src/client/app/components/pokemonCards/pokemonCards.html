@@ -1,14 +1,9 @@
 <div layout="row">
-	<md-card>
+	<!--<md-card>
 		<md-card-content layout="row" layout-align="center center">
-			<md-button class="md-icon-button" ng-click="pokemonCols = pokemonCols - 1;">
-				<i class="material-icons">zoom_in</i>
-			</md-button>
-			<md-button class="md-icon-button" ng-click="pokemonCols = pokemonCols + 1">
-				<i class="material-icons">zoom_out</i>
-			</md-button>
+
 		</md-card-content>
-	</md-card>
+	</md-card>-->
 
 	<md-card>
 		<md-card-content layout="row" layout-align="center center">
@@ -21,7 +16,7 @@
 
 </div>
 
-<md-grid-list ng-init="pokemonCols = 10" md-cols="{{pokemonCols}}}" md-gutter="16px" md-row-height="1:1.4">
+<md-grid-list md-gutter="16px" md-row-height="1:1.4" md-cols-xs="2" md-cols-sm="3" md-cols-md="4" md-cols-lg="6" md-cols-gt-lg="10">
 	<md-grid-tile ng-repeat="card in cards">
 		<pokemon-card layout-fill class="medium" data="card"></pokemon-card>
 	</md-grid-tile>

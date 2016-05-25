@@ -12,12 +12,13 @@
 			<md-button ng-if="Users.getSession()" ng-click="Users.logout();">
 				Logout
 			</md-button>
+			<md-button class="md-icon-button" aria-label="Settings" ng-click="openSideNav('right');">
+	          <i class="material-icons">view_module</i>
+	        </md-button>
 		</div>
 	</md-toolbar>
 	<ui-view flex layout="column"></ui-view>
 </div>
-
-
 
 <md-sidenav class="md-sidenav-left"
     md-component-id="left"
@@ -25,7 +26,7 @@
     md-whiteframe="4">
 	<!-- md-is-locked-open="$mdMedia('gt-md')" -->
 	<md-toolbar class="md-theme-indigo" layout="row" layout-align="space-between center">
-	    <h1 class="md-toolbar-tools">Sidenav Left</h1>
+	    <h1 class="md-toolbar-tools">Main Menu</h1>
 		<md-button class="md-icon-button" ng-click="closeSideNav('left')">
 			<i class="material-icons">close</i>
 		</md-button>
@@ -34,5 +35,21 @@
 		<deck-loader></deck-loader>
 	    <!--<card-form></card-form>-->
 		<!--<card-filter></card-filter>-->
+	</md-content>
+</md-sidenav>
+
+<md-sidenav class="md-sidenav-right"
+    md-component-id="right"
+    md-disable-backdrop
+    md-whiteframe="4">
+	<!-- md-is-locked-open="$mdMedia('gt-md')" -->
+	<md-toolbar class="md-theme-indigo" layout="row" layout-align="space-between center">
+	    <h1 class="md-toolbar-tools">Pokemon Decks</h1>
+		<md-button class="md-icon-button" ng-click="closeSideNav('left')">
+			<i class="material-icons">close</i>
+		</md-button>
+	</md-toolbar>
+	<md-content layout-padding>
+		<pokemon-decks-side></pokemon-decks-side>
 	</md-content>
 </md-sidenav>

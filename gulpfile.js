@@ -9,19 +9,37 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     notify = require('gulp-notify'),
 	addStream = require('add-stream'),
-
     del = require('del'),
     angularTemplateCache = require('gulp-angular-templatecache'),
-
     connect = require('gulp-connect'),
     runSequence = require('run-sequence'),
 	karmaServer = require('karma').Server,
-	mainBowerFiles = require('main-bower-files');
+	mainBowerFiles = require('main-bower-files'),
 	//livereload = require('gulp-livereload'),
 	//cache = require('gulp-cache'),
-	//
+	create = require('gulp-cordova-create'),
+	plugin = require('gulp-cordova-plugin'),
+	android = require('gulp-cordova-build-android');
 
 
+gulp.task('android', function(){
+	runSequence('clean',['bower', 'styles', 'scripts', 'html'],'build' );
+});
+
+gulp.task('build', function(){
+	var options = {
+        dir: '.cordova',
+        id: 'com.PokemonTool.app',
+        name: 'PokemonTool'
+    };
+
+	return gulp.src('dist/client')
+        .pipe(create(options))
+        //.pipe(plugin('org.apache.cordova.dialogs'))
+        //.pipe(plugin('org.apache.cordova.camera'))
+        .pipe(android())
+        .pipe(gulp.dest('dist/android'));
+});
 
 
 gulp.task('test', function(done){
@@ -65,7 +83,7 @@ gulp.task('docs-clean', function(){
 
 
 gulp.task('clean', function() {
-    return del(['dist/client/**', '!dist/client']);
+    return del(['dist/**', '!dist', '.cordova']);
 });
 
 

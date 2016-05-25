@@ -15,17 +15,17 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-		'dist/client/bower_modules/angular/angular.min.js',
+		'bower_components/angular/angular.min.js',
 		'node_modules/angular-mocks/angular-mocks.js',
-
-		'dist/client/bower_modules/angular-animate/angular-animate.min.js',
-		'dist/client/bower_modules/angular-aria/angular-aria.min.js',
-		'dist/client/bower_modules/angular-material/angular-material.min.js',
-		'dist/client/bower_modules/angular-messages/angular-messages.min.js',
-
+		'bower_components/angular-animate/angular-animate.min.js',
+		'bower_components/angular-aria/angular-aria.min.js',
+		'bower_components/angular-material/angular-material.min.js',
+		'bower_components/angular-messages/angular-messages.min.js',
+		'bower_components/angular-ui-router/release/angular-ui-router.min.js',
+		'bower_components/angular-password/angular-password.min.js',
+		'bower_components/angular-cookies/angular-cookies.min.js',
 		'src/client/app/main.js',
 		'src/client/app/**/*.js',
-
 		'src/client/app/**/*.html'
     ],
 

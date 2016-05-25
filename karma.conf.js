@@ -79,7 +79,7 @@ module.exports = function(config) {
 	// optionally, configure the reporter
     coverageReporter: {
       type : 'html',
-      dir : 'test/coverage/'
+      dir : 'dist/coverage/'
   	},
 
 	ngHtml2JsPreprocessor: {

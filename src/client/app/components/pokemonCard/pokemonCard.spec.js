@@ -3,29 +3,23 @@ describe('pokemonCard.js', function(){
 	var $compile,
     	$rootScope,
 		$scope,
-		$element;
-
-	var cardsSeriveMock = {
-		get : jasmine.createSpy('get'),
-		typeof : jasmine.createSpy('typeof')
-	};
-
-	var decksSeriveMock = {
-		get : jasmine.createSpy('get'),
-	};
+		$element,
+		cards;
 
 	beforeEach(module('app'));
 	beforeEach(module('app.templates'));
 	beforeEach(module(function($provide) {
-		//$provide.value("markedCards", "markedCards" );
-		//$provide.value("activeCard", "activeCard" );
-		$provide.value("cards", cardsSeriveMock);
-		$provide.value("decks", decksSeriveMock );
-		//$provide.value("typeChecker", "typeChecker");
+		$provide.service("cards", function($q){
+			this.getById = jasmine.createSpy('getById').and.callFake(function(num) {
+				return $q.when("ABC");
+    		});
+		});
+
 	}));
-	beforeEach(inject(function(_$compile_, _$rootScope_){
+	beforeEach(inject(function(_$compile_, _$rootScope_, _cards_, _decks_){
 		$compile = _$compile_;
 		$rootScope = _$rootScope_;
+		cards = _cards_;
 	}));
 
 
@@ -39,8 +33,6 @@ describe('pokemonCard.js', function(){
 			expect($scope.card.name).toEqual('mock');
 
 		});
-
-
 	});
 
 	describe('When card data is absent in the directive',function(){
@@ -50,8 +42,7 @@ describe('pokemonCard.js', function(){
 			$scope = element.isolateScope() || element.scope();
 		});
 		it('should bind the decks service to $scope', function() {
-
-			expect(cardsSeriveMock.get ).toHaveBeenCalledWith({id:55});
+			expect(cards.getById ).toHaveBeenCalledWith(55);
 		});
 	});
 

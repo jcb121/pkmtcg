@@ -4,7 +4,6 @@ rootApp.directive("deckLoader", function () {
         templateUrl: "components/deckLoader/deckLoader.html",
         scope: {},
         controller: function ($scope, decks, users ) {
-			console.log(decks);
 			$scope.Decks = decks;
 
 			if(users.user_id){

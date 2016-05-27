@@ -27,12 +27,12 @@
 		<md-icon>add</md-icon>
 	  </md-button>
 
-	  <md-button ng-if="scope.deck" aria-label="" class="md-fab md-raised md-mini" ng-click="Decks.getDeck(deck).removeCard(card.id); $event.stopPropagation()">
+	  <md-button ng-if="deck || deck === 0" aria-label="" class="md-fab md-raised md-mini" ng-click="Decks.getDeck(deck).removeCard(card.id); $event.stopPropagation()">
 		<md-tooltip md-direction="left">Decrement the card from the current deck</md-tooltip>
 		<md-icon>remove</md-icon>
 	  </md-button>
 
-	  <md-button ng-if="scope.deck" aria-label="" class="md-fab md-raised md-mini" ng-click="Decks.getDeck(deck).deleteCard(card.id); $event.stopPropagation()">
+	  <md-button ng-if="deck || deck === 0" aria-label="" class="md-fab md-raised md-mini" ng-click="Decks.getDeck(deck).deleteCard(card.id); $event.stopPropagation()">
 		<md-tooltip md-direction="left">Delete card from current deck</md-tooltip>
 		<md-icon>clear</md-icon>
 	  </md-button>

@@ -1,0 +1,45 @@
+<md-list-item ng-click="goToCardView()" layout="row" layout-align="start center">
+  <span>
+    {{card.name}}
+  </span>
+  &nbsp;
+  <span ng-if="deck || deck === 0">
+    x{{Decks.getDeck(deck).quantityOfCard(id)}}
+  </span>
+
+  <span ng-transclude></span>
+
+  <span flex></span>
+
+  <md-button aria-label="" class="md-fab md-raised md-mini" ng-click="Decks.getDeck(deck).addCard(card.id, 1); $event.stopPropagation()">
+    <md-tooltip md-direction="left">Add to current deck</md-tooltip>
+    <md-icon>add</md-icon>
+  </md-button>
+
+  <md-button ng-if="deck || deck === 0" aria-label="" class="md-fab md-raised md-mini" ng-click="Decks.getDeck(deck).removeCard(card.id); $event.stopPropagation()">
+    <md-tooltip md-direction="left">Decrement the card from the current deck</md-tooltip>
+    <md-icon>remove</md-icon>
+  </md-button>
+
+  <!--<md-button ng-if="deck || deck === 0" aria-label="" class="md-fab md-raised md-mini" ng-click="Decks.getDeck(deck).deleteCard(card.id); $event.stopPropagation()">
+    <md-tooltip md-direction="left">Delete card from current deck</md-tooltip>
+    <md-icon>clear</md-icon>
+  </md-button>-->
+
+  <!--<md-button aria-label="" class="md-fab md-raised md-mini" ng-click="$event.stopPropagation()">
+    <md-tooltip md-direction="left">Favourite the card</md-tooltip>
+    <md-icon>favorite</md-icon>
+  </md-button>-->
+
+  <!--<md-button aria-label="" class="md-fab md-raised md-mini" ng-click="MarkedCards.toggle(card.id);$event.stopPropagation()" ng-class="{'active':MarkedCards.check(card.id)}">
+    <md-tooltip md-direction="left">Mark the current card</md-tooltip>
+    <md-icon ng-if="!MarkedCards.check(card.id)">check_box_outline_blank</md-icon>
+    <md-icon ng-if="MarkedCards.check(card.id)">check_box</md-icon>
+  </md-button>
+
+  <div class="marked" ng-show="MarkedCards.check(card.id)"
+         ng-click="MarkedCards.toggle(card)">
+        <i class="material-icons">check_box</i>
+  </div>-->
+
+</md-list-item>

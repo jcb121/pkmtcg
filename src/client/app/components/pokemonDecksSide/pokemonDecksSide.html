@@ -68,12 +68,10 @@
 				</md-card-content>
 			</md-card>
 		</div>
-		<article class="deckPanel" ng-class="{'active':Decks.isActive($index)}" >
-			<md-grid-list md-gutter="8px" md-row-height="1:1.4" md-cols-xs="1" md-cols="2" >
-				<md-grid-tile ng-repeat="card in deck.cards | filterOutCards:deckFilter">
-					<pokemon-card layout-fill deck="deckIndex" id="card.id"></pokemon-card>
-				</md-grid-tile>
-			</md-grid-list>
+		<article>
+			<md-list>
+				<pokemon-card-list-item ng-repeat="card in deck.cards | filterOutCards:deckFilter" flex deck="deckIndex" id="card.id"></pokemon-card-list-item>
+			</md-list>
 		</article>
 	</md-tab>
 </md-tabs>

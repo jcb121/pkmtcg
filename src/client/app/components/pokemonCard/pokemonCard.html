@@ -1,14 +1,5 @@
-<div ng-click="goToCardView()" class="cardImage md-whiteframe-1dp" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
-    <img ng-show"card.url" layout-fill ng-src="{{card.url}}" />
-
-	<div class="marked" ng-show="MarkedCards.check(card.id)"
-         ng-click="MarkedCards.toggle(card)">
-        <i class="material-icons">check_box</i>
-    </div>
-    <div class="quantity" ng-if="deck >= 0">
-        <span>x{{Decks.getDeck(deck).quantityOfCard(id)}}</span>
-    </div>
-
+<div ng-click="goToCardView()" class="cardImage md-whiteframe-1dp">
+  <img ng-show"card.url" layout-fill ng-src="{{card.url}}" />
 
   <md-fab-speed-dial
 	md-open="false"
@@ -23,33 +14,21 @@
     <md-fab-actions>
 
 	  <md-button aria-label="" class="md-fab md-raised md-mini" ng-click="Decks.getDeck(deck).addCard(card.id, 1); $event.stopPropagation()">
-		<md-tooltip md-direction="left">Add to current deck</md-tooltip>
-		<md-icon>add</md-icon>
-	  </md-button>
-
-	  <md-button ng-if="deck || deck === 0" aria-label="" class="md-fab md-raised md-mini" ng-click="Decks.getDeck(deck).removeCard(card.id); $event.stopPropagation()">
-		<md-tooltip md-direction="left">Decrement the card from the current deck</md-tooltip>
-		<md-icon>remove</md-icon>
-	  </md-button>
-
-	  <md-button ng-if="deck || deck === 0" aria-label="" class="md-fab md-raised md-mini" ng-click="Decks.getDeck(deck).deleteCard(card.id); $event.stopPropagation()">
-		<md-tooltip md-direction="left">Delete card from current deck</md-tooltip>
-		<md-icon>clear</md-icon>
+  		<md-tooltip md-direction="left">Add to current deck</md-tooltip>
+  		<md-icon>add</md-icon>
 	  </md-button>
 
 	  <md-button aria-label="" class="md-fab md-raised md-mini" ng-click="$event.stopPropagation()">
-		<md-tooltip md-direction="left">Favourite the card</md-tooltip>
-		<md-icon>favorite</md-icon>
+  		<md-tooltip md-direction="left">Favourite the card</md-tooltip>
+  		<md-icon>favorite</md-icon>
 	  </md-button>
 
 	  <md-button aria-label="" class="md-fab md-raised md-mini" ng-click="MarkedCards.toggle(card.id);$event.stopPropagation()" ng-class="{'active':MarkedCards.check(card.id)}">
-		<md-tooltip md-direction="left">Mark the current card</md-tooltip>
-		<md-icon ng-if="!MarkedCards.check(card.id)">check_box_outline_blank</md-icon>
-		<md-icon ng-if="MarkedCards.check(card.id)">check_box</md-icon>
+  		<md-tooltip md-direction="left">Mark the current card</md-tooltip>
+  		<md-icon ng-if="!MarkedCards.check(card.id)">check_box_outline_blank</md-icon>
+  		<md-icon ng-if="MarkedCards.check(card.id)">check_box</md-icon>
 	  </md-button>
 
     </md-fab-actions>
   </md-fab-speed-dial>
-
 </div>
-<span ng-transclude></span>

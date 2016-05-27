@@ -1,6 +1,6 @@
 rootApp.service('userMessages', function($mdDialog, $mdToast){
 
-	this.showToast = function(text, ok){
+	this.toast = function(text, ok){
 		var toast = $mdToast.simple()
           .textContent(text)
           .action(ok)

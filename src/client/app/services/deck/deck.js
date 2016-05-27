@@ -9,7 +9,7 @@
  * @param {int} id id of the new deck
  * @returns {object} a deck object constructor
  */
-rootApp.service("deck", function(){
+rootApp.service("deck", function(userMessages){
 
 
 	var deckObject = function(name, cards, id){
@@ -58,9 +58,11 @@ rootApp.service("deck", function(){
 
 		if (index !== false) {
 			this.cards[index].quantity += quantity;
+			userMessages.toast("Card quantity increased");
 		}
 		else {
 			this.cards.push({ id: id, quantity: quantity });
+			userMessages.toast("Card Add to deck");
 		}
 		return this;
 	}
@@ -78,9 +80,11 @@ rootApp.service("deck", function(){
 		var index = this.indexOfCard(id);
 		if (this.cards[index].quantity <= 1) {
 			this.deleteCard(id);
+			userMessages.toast("Card removed from deck");
 		}
 		else {
 			this.cards[index].quantity--;
+			userMessages.toast("Card quantity decreased");
 		}
 	}
 

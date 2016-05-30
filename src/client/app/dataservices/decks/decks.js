@@ -18,7 +18,7 @@
   * @description
   * holds deck objects
   */
-rootApp.service("decks", function ($http, $q, users, deck) {
+rootApp.service("decks", function ($http, $q, users, deck, userMessages) {
     var self = this,
 		cache = [],
 		url = "http://pkm.52webdesigns.com/rest/decks.php?";
@@ -141,6 +141,7 @@ rootApp.service("decks", function ($http, $q, users, deck) {
 		else{
 			tempDeck = new deck(name, cards, id);
 		}
+    userMessages.toast('New deck created');
 		return tempDeck;
     };
 

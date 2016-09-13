@@ -21,7 +21,7 @@
 rootApp.service("decks", function ($http, $q, users, deck, userMessages) {
     var self = this,
 		cache = [],
-		url = "http://pkm.52webdesigns.com/rest/decks.php?";
+		url = "http://celtco.net/pkmtcg/rest/decks.php?";
 
 	/**
 	* @ngdoc method

@@ -5,15 +5,32 @@ rootApp.config(function($stateProvider, $urlRouterProvider) {
   // For any unmatched url, redirect to /state1
   $urlRouterProvider.otherwise("/home");
   $stateProvider
-	.state('common',{
-		templateUrl: "layout/common/common.html",
-		controller:'state.common'
-	})
-	.state('home', {
+  	.state('common',{
+  		templateUrl: "layout/common/common.html",
+  		controller:'state.common'
+  	})
+  	.state('home', {
     	url: '/home',
     	templateUrl: 'features/home/home.html',
-		controller:'home',
-		parent:'common'
+  		controller:'home',
+  		parent:'common'
+    })
+    .state('cardForm', {
+    	url: '/cardForm',
+    	templateUrl: 'features/cardForm/cardForm.html',
+  		controller:'cardForm',
+  		parent:'common',
+      resolve:{
+        cardNames:function(cards){
+          return cards.get({perPage:-1});
+        },
+        attackNames:function(cardAttacks){
+          return cardAttacks.get();
+        },
+        abilityNames:function(cardAbilities){
+          return cardAbilities.get();
+        }
+      }
     })
     .state('cardView', {
     	url: '/cardView/:cardId',

@@ -1,6 +1,6 @@
 rootApp.service("cardProperties", function ($http, $q) {
     var self = this,
-		url = "http://pkm.52webdesigns.com/rest/properties.php?";
+		url = "http://celtco.net/pkmtcg/rest/properties.php?";
 
 	this.get = function(){
 		var deffered = $q.defer();

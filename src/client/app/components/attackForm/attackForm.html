@@ -1,18 +1,22 @@
-<div class="attackMod">
-   <label>
-        Attack <span ng-transclude></span>:
-        <autocomplete on-type="attackChange" ng-model="name" data="cardAttacksService.info"></autocomplete>
-    </label>
+<div>
+    <h5>Attack <span ng-transclude></span>:</h5>
+    <md-autocomplete flex md-items="attack in attacks" md-item-text="attack.name" md-floating-label="attack name" md-selected-item-change="selectEntry(searchText)" md-search-text-change="textEntry(searchText)" ; md-search-text="searchText">
+        <md-item-template>
+            <span>{{attack.name}}</span>
+        </md-item-template>
+    </md-autocomplete>
 
-    <div ng-init="newCard=false" ng-show="newCard" >
-        <label>
-            Attack Damage:
-            <input type="number" ng-model="damage" ng-change="validate" required>
-        </label>
+    <div ng-show="newAttack" layout="column">
+        <md-input-container>
+            <label>Attack Damage:</label>
+            <input type="number" step="10" ng-model="damage" ng-change="validate" required />
+        </md-input-container>
 
-        <label >
-            Attack Property:
-            <select ng-model="property" ng-options="prop.name for prop in cardPropertiesService.data track by prop.id" ng-required="string"></select>
-        </label>
+        <md-input-container>
+            <label>Attack Property:</label>
+            <md-select ng-model="property">
+                <md-option ng-repeat="prop in cardProperties" value="{{prop.id}}">{{prop.name}}</md-option>
+            </md-select>
+        </md-input-container>
     </div>
 </div>

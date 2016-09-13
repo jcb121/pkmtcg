@@ -1,19 +1,34 @@
-<div class="abilityMod">
-    <label>
-        Ability <span ng-transclude></span>:
-        <autocomplete on-type="abilityChange" ng-model="name" data="cardAbilitiesService.info"></autocomplete>
-    </label>
+<form name="abilityForm">
+    <h5>Ability <span ng-transclude></span>:</h5>
+    <md-autocomplete 
+      flex 
+      md-items="ability in abilities" 
+      md-item-text="ability.name" 
+      md-floating-label="Ability name" 
+      md-selected-item-change="selectEntry(name)" 
+      md-search-text-change="textEntry(name)" 
+      md-search-text="name">
+        <md-item-template>
+            <span>{{ability.name}}</span>
+        </md-item-template>
+    </md-autocomplete>
 
-    <div ng-init="newCard=false" ng-show="newCard">
-        <label>
-            Ability Trigger:
-            <select ng-model="trigger" ng-options="trigger.name for trigger in cardTriggersService.data track by trigger.id" ng-required="string"></select>
+    <div ng-show="newAbility" layout="column">
+        <md-input-container>
+            <label>Ability Trigger:</label>
+            <md-select ng-model="trigger" name="trigger">
+                <md-option ng-repeat="trigger in cardTriggers" value="{{trigger.id}}">{{trigger.name}}</md-option>
+            </md-select>
+        </md-input-container>
 
-        </label>
-
-        <label>
-            Ability Property:
-            <select ng-model="property" ng-options="prop.name for prop in cardPropertiesService.data track by prop.id" ng-required="string"></select>
-        </label>
+        <md-input-container>
+            <label>Ability Property:</label>
+            <md-select ng-model="property" name="property">
+                <md-option ng-repeat="prop in cardProperties" value="{{prop.id}}">{{prop.name}}</md-option>
+            </md-select>
+        </md-input-container>
     </div>
-</div>
+    <md-button type="button" ng-click="createAbility()">
+      Create New Attack
+    </md-button>
+</form>

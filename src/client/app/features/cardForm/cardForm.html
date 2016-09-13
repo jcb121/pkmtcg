@@ -1,0 +1,54 @@
+<form name="cardForm">
+  <md-card layout-padding layout="column" ng-init="valid = false; showAttack2 = false; showAttack3 = false; card = {};">
+    <md-autocomplete
+      flex
+      md-items="card in cards"
+      md-item-text="card.name"
+      md-floating-label="Card name">
+      <md-item-template>
+        <span >{{card.name}}</span>
+      </md-item-template>
+    </md-autocomplete>
+    
+    <input class="ng-hide" id="input-file-id" multiple type="file" accept=".png,.jpg" onchange="angular.element(this).scope().setImage(this);" />
+    <label for="input-file-id" class="md-button">Pokemon Image</label>
+    
+    <div layout="row">
+      <md-button ng-show="trainerCard" ng-click="pokemonCard = false; trainerCard = false;">Back</md-button>
+      <md-button ng-hide="trainerCard" ng-click="trainerCard = true; pokemonCard = false;">Trainer</md-button>
+
+      <md-button ng-show="pokemonCard" ng-click="pokemonCard = false; trainerCard = false;">Back</md-button>
+      <md-button ng-hide="pokemonCard" ng-click="pokemonCard = true; trainerCard = false;">Pokemon</md-button>
+    </div>
+    
+    <div ng-show="pokemonCard" layout="column">
+        
+        <md-input-container>
+          <label>Pokemon Health:</label>
+          <input type="number" ng-model="card.health" />
+        </md-input-container>
+
+        <ability-form ng-model="card.ability" options="abilities"></ability-form>
+        <attack-form ng-model="card.attack1" options="attacks">1</attack-form>
+        <attack-form ng-model="card.attack2" options="attacks" ng-show="showAttack2">2</attack-form>
+        <attack-form ng-model="card.attack3" options="attacks" ng-show="showAttack3">3</attack-form>
+
+    </div>
+    <div ng-show="trainerCard" >
+        <md-input-container>
+          <label>Trainer Property:</label>
+          <md-select ng-model="card.property">
+            <md-option ng-repeat="property in properties" value="{{property.id}}">{{property.name}}</md-option>
+          </md-select>
+        </md-input-container>
+        
+        
+        <label>
+            <input name="supporter" type="checkbox" style="display:inline !important;" ng-model="card.supporter" value="true">Is A Supporter
+        </label>
+    </div>
+
+    <md-button type="submit" ng-show="valid" ng-enabled="valid" ng-click="">Upload</md-button>
+    
+  </md-card>
+</form>

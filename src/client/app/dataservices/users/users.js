@@ -4,7 +4,7 @@ rootApp.service('users', function($http, $q, $cookies){
 	this.user_id = $cookies.get('user_id');
 
 	this.login = function(user){
-		var url = "http://pkm.52webdesigns.com/rest/user/login.php?";
+		var url = "http://celtco.net/pkmtcg/rest/user/login.php?";
 		var deffered = $q.defer();
 		$http.post(url, user).then(function (response) {
 			if(response.data.success){
@@ -19,7 +19,7 @@ rootApp.service('users', function($http, $q, $cookies){
 	};
 
 	this.register = function(user){
-		var url = "http://pkm.52webdesigns.com/rest/user/create.php?";
+		var url = "http://celtco.net/pkmtcg/rest/user/create.php?";
 		var deffered = $q.defer();
 		$http.post(url, user).then(function (response) {
 			if(response.data.success){
@@ -33,7 +33,7 @@ rootApp.service('users', function($http, $q, $cookies){
 	};
 
 	this.logout = function(){
-		var url = "http://pkm.52webdesigns.com/rest/user/logout.php?";
+		var url = "http://celtco.net/pkmtcg/rest/user/logout.php?";
 		var deffered = $q.defer();
 		var user = {
 			session:session
@@ -51,7 +51,7 @@ rootApp.service('users', function($http, $q, $cookies){
 	};
 
 	this.checkSession = function(){
-		var url = "http://pkm.52webdesigns.com/rest/user/check.php?";
+		var url = "http://celtco.net/pkmtcg/rest/user/check.php?";
 		var deffered = $q.defer();
 		var user = {
 			session:getSession

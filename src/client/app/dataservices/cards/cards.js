@@ -1,6 +1,6 @@
 rootApp.service("cards", function ($http, $q) {
 
-    var url = "http://pkm.52webdesigns.com/rest/cards.php?";
+    var url = "http://celtco.net/pkmtcg/rest/cards.php?";
 	var cache = [];
 
 
@@ -51,7 +51,7 @@ rootApp.service("cards", function ($http, $q) {
 
 	function matching(id) {
 		var gettingMatches = $q.defer();
-		$http.get("http://pkm.52webdesigns.com/rest/matches.php?id=" + id).then(function (response) {
+		$http.get("http://celtco.net/pkmtcg/rest/matches.php?id=" + id).then(function (response) {
 			var matchingIds = [];
             response.data.forEach(function (card) {
                 matchingIds.push(card.rel);

@@ -1,6 +1,6 @@
 rootApp.service("cardTriggers", function ($http, $q) {
     var self = this,
-		url = "http://pkm.52webdesigns.com/rest/triggers.php?";
+		url = "http://celtco.net/pkmtcg/rest/triggers.php?";
 
 	this.get = function(){
 		var deffered = $q.defer();

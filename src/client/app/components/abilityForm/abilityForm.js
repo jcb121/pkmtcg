@@ -1,33 +1,35 @@
-rootApp.directive("abilityForm", function () {
+rootApp.directive("abilityForm", function() {
     return {
         transclude: true,
         require: ["?ngModel"],
         scope: {
-            model: '=ngModel'
+            model: '=ngModel',
+            abilities: '=options'
         },
         templateUrl: "components/abilityForm/abilityForm.html",
-        controller: function ($scope, cardAbilities, cardProperties, cardTriggers) {
+        controller: function($scope, cardProperties, cardTriggers) { /**/
 
-            $scope.abilityChange = function () {
+            cardProperties.get().then(function(properties) {
+                $scope.cardProperties = properties;
+            });
 
-                if ($scope.cardAbilitiesService.info.indexOf($scope.name) > -1) {   //
-                    $scope.newCard = false;
-                }
-                else if ($scope.name === "") {
-                    $scope.newCard = false;
-                }
-                else {
-                    $scope.newCard = true;
-                }
+            cardTriggers.get().then(function(triggers) {
+                $scope.cardTriggers = triggers;
+            });
+
+            $scope.selectEntry = function(text) {
+                $scope.newAbility = false;
             };
 
-            $scope.cardAbilitiesService = cardAbilities;
-            $scope.cardPropertiesService = cardProperties;
-            $scope.cardTriggersService = cardTriggers;
-
-        },
-        link: function (scope, element, attrs, ngModel) {
-
+            $scope.textEntry = function(text) {
+                if (text.length > 3) {
+                    $scope.newAbility = true;
+                }
+            };
+            
+            $scope.createAbility = function(){
+              
+            }
         }
     };
 });
